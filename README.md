@@ -1,3 +1,7 @@
+<h1>Setup:</h1>
+<p>In VSCode Terminal<br/>1. npm install<br/>2. cd hana<br/>3. npm run serve</p>
+
+
 # omniumProject
 
 <h4>Login Account (To access assessment / profile page): <br/>
