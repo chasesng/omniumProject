@@ -29,6 +29,18 @@ npm run serve
 Email: chase@yahoo.com <br/>
 Password: GitHub1! (case-sensitive)</h4/> <br/>
 
+## Available Features
+```sh
+- Sign Up and Log In with Firebase Authentication
+- Router-Link and authentication on authorized-only pages
+- Firestore Database CRUD functions. (Advisor Requests: Authorized-Only Page)
+    View enquiries made by consumers in "All Plans" Page
+    Go to "Advisor Requests" page to view all enquiries, stored in Firestore Database
+    Authorized personnel (no user-types as of 20/02/2023) can view the page and reply to an enquiry of their choice after viewing its contents
+- Viewing of all available plans and descriptions on a single page based on user click, inclusive of an enquiry form for advisors to view
+    Display descriptions of plans on the side without repeated page load for every option chosen for viewing
+    When interested in a plan, users can send in an enquiry for advisors
+```
 
 
 Omnium is a website that provides a platform for consumers to easily compare insurance policies from multiple major insurance companies. The website offers a range of features that are designed to make the process of finding and buying insurance easier and more convenient for users.
