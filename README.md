@@ -31,6 +31,7 @@ Password: GitHub1! (case-sensitive)</h4/> <br/>
 
 ## Available Features
 ```sh
+
 - Sign Up and Log In with Firebase Authentication
 - Router-Link and authentication on authorized-only pages
 - Firestore Database CRUD functions. (Advisor Requests: Authorized-Only Page)
