@@ -19,9 +19,6 @@
 
 
 
-
-
-
 // import { createApp } from 'vue'
 // import App from './App.vue'
 //import router from '@/router'
@@ -73,7 +70,7 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyD8kn26Sj-wvYhB6h-vALgxWoZ2UyujHyI",
   authDomain: "hana-firebase-auth.firebaseapp.com",
   projectId: "hana-firebase-auth",
@@ -82,6 +79,7 @@ const firebaseConfig = {
   appId: "1:257456893215:web:7da412256ffcbfeb62142a",
   measurementId: "G-VNEDYMGDTL"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -99,18 +97,22 @@ import FAQ from './subComponent/supportFaq'
 import login from './components/loginPage'
 import plans from './components/allPlans'
 import register from './components/registerAccount.vue'
-import loginAccount from './components/accountLogin.vue'
 import questionBoard from './components/questionBoard.vue'
 import toRedirect from './subComponent/toRedirect.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import profilePage from './subComponent/profilePage';
 import reclaimPassword from './subComponent/reclaimPassword.vue'
 import insuanceAssessmentGuide from './subComponent/assessmentHelp.vue'
+import displayPlans from './components/displayPlans'
+import menuBar from './components/menuBar'
+
+
+
 
 const router = createRouter({
     scrollBehavior() {
         // always scroll to top
-        // return { top: 0 }
+        return { top: 0 }
       },
     history: createWebHistory(),
     routes : [
@@ -135,12 +137,17 @@ const router = createRouter({
     {path: "/userLogin", name: "login", component: login},
     {path: "/Plans", name: "plans", component: plans},
     {path: "/reg", name: "register2", component: register},
-    {path: "/Login_Account", name: "loginFinal", component: loginAccount},
-    {path: "/Question_Board", name: "qnReply", component: questionBoard},
+    {path: "/Question_Board", name: "qnReply", component: questionBoard,meta: { requiresAuth:true}},
     {path: "/Redirect", name: "redirectOnly", component: toRedirect},
     {path: "/Profile", name: "userProfile", component: profilePage, meta: { requiresAuth: true}},
     {path: "/ForgotPassword", name: "reclaimPW", component: reclaimPassword},
     {path: "/InsuranceAssessmentGuide", name: "insuranceGuide", component: insuanceAssessmentGuide},
+    {path: "/DisplayPlans", component: displayPlans},
+    {path: "/Menu", component: menuBar},
+
+
+
+
 
 
 

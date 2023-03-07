@@ -50,6 +50,9 @@
     line-height: 23px;
 }
 
+.ibn {
+    font-family: 'Ibarra Real Nova', serif;
+}
 
 .p {
     font-size: 14px;
@@ -104,7 +107,7 @@
 }
 
 .wtbg {
-    background-color:whitesmoke;
+    background-color:white;
 }
 
 
@@ -130,6 +133,23 @@
     background-color:gainsboro;
 }
 
+.third {
+    /* color:#174ea6 */
+    color:white
+}
+
+.thirdbg {
+    background-color:#174ea6
+}
+
+.fourth {
+    color:rgba(42,48,109,255);
+}
+
+.trimB5 {
+    margin-bottom:-5%
+}
+
 .ib {
     display:inline-block;
 }
@@ -148,6 +168,9 @@
 
 .mt50 {
     margin-top:50px;
+}
+.mt25 {
+    margin-top:25px;
 }
 .mb25 {
     margin-bottom:25px;
@@ -173,9 +196,6 @@
     padding:10px;
 }
 
-.wtbg {
-    background-color:whitesmoke;
-}
 
 .wfc {
     width:fit-content;
@@ -185,9 +205,6 @@
     height:fit-content;
 }
 
-.tdn {
-    text-decoration: none;
-}
 .cntr {
     margin:auto;
 }
@@ -207,6 +224,8 @@
   border:none;
   border-radius:4px;
   cursor:pointer;
+  font-family: 'Ibarra Real Nova', serif;
+
 }
 
 .ptr {
@@ -227,6 +246,14 @@
     border:1px solid black
 }
 
+.lb {
+    border:1px solid gray
+}
+
+.lb2 {
+    border:.5px solid gray
+}
+
 .sbl { 
     /* standard border left etc */
     border-left:1px solid black;
@@ -242,13 +269,20 @@
     border-top:1px solid black
 }
 .hv:hover {
-    background-color:gray;
+    background-color:lightgray;
     transition:all .5s;
+    cursor:pointer;
+    transform: scale(1.05);
+    transition: transform .2s;
 }
 
 .label {
     transition:.5s;
     position:absolute;
+}
+
+.ntd {
+    text-decoration: none;
 }
 
 /* 
@@ -267,9 +301,31 @@
  .picsize {
     width:550px;
     height:350px;
+    transition: transform .2s;
 
  }
 
+ .hof {
+    overflow:hidden;
+ }
+.picsize:hover {
+    transform: scale(1.1);
+}
+.icon_container:hover {
+    transform: scale(1.1);
+    transition: transform .2s
+}
+.gp {
+    transition: transform .2s;
+
+}
+
+.cursPoint {
+    cursor:pointer
+}
+.gp:hover {
+    transform: scale(1.1)
+}
  .bs {
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -367,6 +423,25 @@
     height:100%;
  }
 
+ .scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #7cb4ff #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+.scroll ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+.scroll  ::-webkit-scrollbar-track {
+    background-color:transparent;
+  }
+
+.scroll ::-webkit-scrollbar-thumb {
+    background-color: #7cb4ff;
+    border-radius: 10px;
+    border: 3px ridge #ffffff;
+  }
  
 
 .slide-fade-enter-active {
@@ -381,4 +456,16 @@
   opacity: 0;
   transform: translateY(-10px);
 }
+
+.cleanButton {
+    background-color:transparent;
+    border:none;
+}
+
+.redirectButton:hover {
+  color:#014c8c;
+  font-size: 1.5em;
+  transition:font-size .2s;
+}
+
 </style>

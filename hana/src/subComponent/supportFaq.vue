@@ -1,6 +1,6 @@
 <template>
     <br/>
-    <div class="faqHeader" style="display:flex;">
+    <div class="faqHeader mt50" style="display:flex;">
         <p style="font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:40px; color:gray; margin-left:10%;">FAQ</p>
         
         <div class="tabs" v-bind:style="{ width: parentWidth }">
@@ -15,7 +15,7 @@
         <div class="searchContainer" style="display:flex; width:100%; text-align:left;">
             <div class="searchBar" style="width:100%; display:flex;">
                 <input type="text" class="desc" placeholder=" Search FAQ" style="width:70%; border:1px solid gray"/>
-                <p class="desc" style="width:10%; text-align:center">Section</p>
+                <p class="desc wtbg" style="width:10%; text-align:center">Search</p>
 
             </div>
             <!-- <div class="sectionDropdown" style="border:1px solid gray">
@@ -34,7 +34,7 @@
         <div class="listBySection" style="overflow:hidden;width:40%;">
             <div>
                 <ul>
-                    <li class="faqLink" v-for="hfaq in hfaqs.filter(hfaq => hfaq.is === currentTab)" v-bind:key="hfaq.id" v-bind:class="{ active: viewerTab === hfaq.id }" v-on:click="setviewerTab(hfaq.id)">
+                    <li class="faqLink wt" v-for="hfaq in hfaqs.filter(hfaq => hfaq.is === currentTab)" v-bind:key="hfaq.id" v-bind:class="{ active: viewerTab === hfaq.id }" v-on:click="setviewerTab(hfaq.id)">
                     {{ hfaq.qn }}
                     </li>
                 </ul>

@@ -10,7 +10,23 @@
     <div class="controlForm">
     <form @submit.prevent="submitForm">
 
-      
+      <div class="form-group">
+        <div class="label-column">
+          <label for="nric" :style="{color: labelColors[3]}">NRIC *</label>
+        </div>
+        <div class="input-column">
+          <input id="nric" class="inpClear inp" type="text" @focus="changeLabelColor(3)" @blur="resetLabelColor(3)" placeholder=" Enter your NRIC here" v-model="nric"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label-column">
+          <label for="fullname" :style="{color: labelColors[4]}">Full Name (As shown on IC) *</label>
+        </div>
+        <div class="input-column">
+          <input id="fullname" class="inpClear inp" type="text" @focus="changeLabelColor(4)" @blur="resetLabelColor(4)" placeholder=" Full Name" v-model="username"/>
+        </div>
+      </div>
 
       <div class="form-group">
         <div class="label-column">
@@ -39,7 +55,7 @@
           <input id="confirmPassword" class="inpClear inp" type="password" @focus="changeLabelColor(2)" @blur="resetLabelColor(2)" placeholder=" Confirm Password" v-model="confirmPassword"/>
         </div>
       </div>
-      <p class="errMsg ft l" v-if="errMsg">{{ errMsg }}</p>
+      <p class="errMsg ft l" style="height:33px">{{ errMsg }}</p>
 
 
 <br/>
@@ -54,38 +70,7 @@
     </div>
   </div>
 </div>
-  
-<!-- <div class="assistSide cntr">
-    <p class="ft l primary" style="padding-top:10px;font-size:18px;">By creating an Omnium account, you can</p>
-    <ul>
-      <div class="dispFlex">
-        <div style="border:1px solid lightgrey; height:100%; font-size:30px; width:10%; overflow:hidden">♡</div>
-      <li class="ft l" style="width:90%">Favorite plans for your later viewing.</li>
-      </div>
 
-      <div class="dispFlex">
-      <div style="border:1px solid lightgrey; height:100%; font-size:30px; width:10%; overflow:hidden">☎</div>
-      <li class="ft l" style="width:90%">Be connected to an agent for your assistance.</li>
-    </div>
-
-    <div class="dispFlex">
-      <div style="border:1px solid lightgrey; height:100%; font-size:30px; width:10%; overflow:hidden">🗎</div>
-      <li class="ft l" style="width:90%">Check through past purchases and request follow ups.</li>
-    </div>
-
-    <div class="dispFlex">
-      <div style="border:1px solid lightgrey; height:100%; font-size:30px; width:10%; overflow:hidden">☺</div>
-      <li class="ft l" style="width:90%">Have access to an insurance assessment for your profile.</li>
-    </div>
-
-    <div class="dispFlex">
-      <div style="border:1px solid lightgrey; height:100%; font-size:30px; width:10%; overflow:hidden">‼</div>
-      <li class="ft l" style="width:90%">Receive emails on newer plans that match your priorities.</li>
-    </div>
-
-
-    </ul>
-  </div> -->
 </div>
 </template>
 
@@ -94,23 +79,44 @@
 import { ref } from 'vue'
 import { createUserWithEmailAndPassword, getAuth } from '@firebase/auth'
 import { useRouter } from 'vue-router';
+import { getFirestore, addDoc, collection } from '@firebase/firestore';
+import { app } from '@/configs'
+const db = getFirestore(app);
+
 const email = ref('')
+const nric = ref('')
+
 const password = ref('')
 const router = useRouter();
 const confirmPassword = ref('')
 const errMsg = ref();
+const username = ref();
 
 
 const register = () => {
 
   if (password.value.trim() === confirmPassword.value.trim()) {
      createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-     .then(() => {
-      console.log("Successful");
-      router.push('/');
-      
+        .then((userCredentials) => {
+          const user = userCredentials.user;
+          const userID = user.uid;
+          addDoc(collection(db, 'users'), {
+            username: username.value,
+            age: 0,
+            assignmentArray: [],
+            emailRef: email.value,
+            from: "NA",
+            gender: "NA",
+            occupation: "NA",
+            userID: userID,
+            userType: "User",
+            nric: nric.value,
 
-     })
+          });
+          console.log("Successful");
+          router.push('/');
+
+        })
      .catch((error) => {
       console.log(error.code);
       switch(error.code) {
@@ -120,8 +126,16 @@ const register = () => {
         case "auth/invalid-email":
           errMsg.value = "The provided email is invalid";
           break;
+         case "auth/missing-email":
+          errMsg.value = "You have not entered an email";
+          break;
+          case "auth/email-already-in-use":
+          errMsg.value = "The provided email is already in use by an existing user.";
+          break;
         default:
-          errMsg.value = "One or more fields is entered incorrectly";
+          // errMsg.value = "One or more fields is entered incorrectly";
+          errMsg.value = error.code;
+
           break;
     }
      })

@@ -2,201 +2,284 @@
 <template>
     <div>
         <br />
-        <div class="ib">
-        <div class="fullContainer">
-            <div class="leftContainer">
+        <div class="ib mt50">
+            <br/>
+            <div class="fullContainer">
+                <div class="leftContainer">
 
-                <div class="display:flex">
-                    <p class="ft primary l p4" style="width:40%">All Available Plans</p>
+                    <div style="margin-left:1%">
+                        <p class="ft primary l p4" style="width:40%;text-align:left;margin-left:1%">All Available Plans</p>
 
-                    <div class="filterDropdown" style="width:40%">
-                        <select class="dropdownBox ft" v-model="selectedType">
-                            <option value="0" style="font-weight:bold">All Plans</option>
-                            <option value="8">Favorites</option>
-                            <hr />
-                            <option value="1">Life</option>
-                            <option value="2">Health</option>
-                            <option value="3">Home</option>
-                            <option value="4">Auto</option>
-                            <option value="5">Disability</option>
-                            <option value="6">Long-Term</option>
+                        <div class="filterDropdown" style="text-align:left">
+                            <select class="dropdownBox ft" v-model="selectedType" style="float:left">
+                                <option value="0" style="font-weight:bold">All Plans</option>
+                                <!-- <option value="8">Favorites</option> -->
+                                <hr />
+                                <option value="Life">Life</option>
+                                <option value="Health">Health</option>
+                                <option value="Home">Home</option>
+                                <option value="Auto">Auto</option>
+                                <option value="Disability">Disability</option>
+                                <option value="Long-Term">Long-Term</option>
 
-                        </select>
-                    </div>
-                </div>
-                <p class="ft p8 l second">For legal reasons, these are only based on real-life
-                    plans offered by major insurance
-                    companies.</p>
-                <Br />
-                
-                <div class="planDisplay" style="width:800px">
-                <div v-for="(plan, index) in plans.filter(plan => filterByType.includes(plan.typeID))" :key="index" style="height:fit-content">
-                    <div class="planEa ft l" v-on:click="setPreviewPlan(plan.id)" v-bind:key="plan.id"
-                        v-bind:class="{ active: previewPlan === plan.id }"
-                        >
-                        <p class="w100 pd5 wt b primarybg">
-                            Plan Name: {{ plan.name }}</p>
-                        <div class="tripleSection">
-                            <p class="planDesc">Coverage</p>
-                            {{ plan.type }}
-                            <p class="planDesc">Age Group:</p>
-                            {{ plan.agegroup }}
-                            <p class="planDesc">Target:</p>
-                            {{ plan.target }}
-                            <p class="planDesc">Income:</p>
-                            {{ plan.income }}
-                            <p class="planDesc">Provider:</p>
-                            {{ plan.company }}
-                            
+                            </select>
                         </div>
                     </div>
-                </div>
-                </div>
-            </div>
 
-            <div class="f" style="margin-top:9%;width:40%">
-                <div id="planPreview" class="bs" style="width:60%">
-                    <div class="ft p4 primarybg wt pd5">Plan Preview</div>
-                    <!-- <p>{{ filterByType }}</p> -->
-                    <br />
-                    <div class="previewDiv" style="width:100%;">
-                        <div v-for="(plan, index) in plans" :key="index">
-                            <b class="previewPlanName ft" v-if="previewPlan === index + 1">{{ plan.name }}</b>
-                            <p class="previewPlanDesc ft" v-if="previewPlan === index + 1">{{ plan.details }}</p>
-                            
-                        </div>
-                        <hr/>
-                    </div> 
-                </div>
-                <div id="sendReq" class="bs" style="margin-left:5%;width:40%">
-                    <div class="ft p4 primarybg wt pd5">Additional Support</div>
-                    <Br/>
-                    <div class="previewDiv" style="width:100%;">
-                        <div v-for="(plan, index) in plans" :key="index">
-                            <b class="previewPlanName ft" v-if="previewPlan === index + 1">{{ plan.name }}</b>
-                        </div>
-                        <br/>
-                    </div> 
-                    <button class="ft brButton primarybg od5 mb10" @click="scrollBottom">Get in Touch</button>
-                    <br/>
-
-                    <p class="ft p8 l">You might consider this plan if you...</p>
                     
+
+                    <div class="planDisplay" style="width:100%;margin-bottom:3vh;overflow-x:hidden">
+                        <div class="ib w100">
+                            <br/>
+                            <div v-for="(plan, index) in plans.filter(plan => filterByType.includes(plan.coverageType))" :key="index">
+                            <div id="planContainer">
+                                <div v-bind:class="{'selected-message':previewPlan === plan.id}" class="wtbg cntr br10 animate__animated animate__slideInDown hv" style="height:200px; width:95%">
+                                <div class="vMsg ib w100" v-on:click="setPreviewPlan(plan.id)" v-bind:key="plan.id"
+                                v-bind:class="{ active: previewPlan === plan.id }" style="margin-left:.5%;margin-top:.5%"> 
+                                    <p class="ft b p6 w100" style="text-align:left;padding-left:10px;margin-top:5px">{{ plan.planName }}</p>
+                                    <div class="f">
+                                    <p class="ft l p8" style="text-align:left;padding-left:10px;">{{ plan.coverageType }} 
+                                        <i class="fa-solid fa-life-ring cntr pd5" v-if="(plan.coverageType === 'Life')" style="font-size:20px;"></i>
+                                        <i class="fa-solid fa-heart-pulse cntr pd5" v-if="(plan.coverageType === 'Health')" style="font-size:20px;"></i>
+                                        <i class="fa-solid fa-house cntr pd5" v-if="(plan.coverageType === 'Home')" style="font-size:20px;"></i>
+                                        <i class="fa-solid fa-car cntr pd5" v-if="(plan.coverageType === 'Auto')" style="font-size:20px;" ></i>
+                                        <i class="fa-solid fa-wheelchair cntr" v-if="(plan.coverageType === 'Disability')" style="font-size:20px;"></i>
+                                        <i class="fa-solid fa-person-cane cntr" v-if="(plan.coverageType === 'Long-Term')" style="font-size:20px;"></i>
+
+                                    
+                                    </p>
+                                    
+                                    </div>
+                                    <p class="ft l p8 br10 wfc primarybg wt" style="text-align:left;padding-left:10px;padding-right:10px;margin-left:.3%">{{ plan.provider }}</p>
+                                    <p class="ft l p8 w100">{{ plan.shortDescription }}</p>
+
+                                </div>
+                               
+                            </div>
+                        </div>
+                            <br/>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            
+
+                <div class="f" style="margin-top:5%;width:30vw">
+
+                    <div id="planPreview" style="width:100%">
+
+                        <div class="ft p4 thirdbg wt pd5">Plan Preview</div>
+                        <button class="ft brButton primarybg od5 mt10 hv w100" style="height:3%" @click="scrollBottom">Get
+                            in Touch</button>
+
+
+                        <!-- <p>{{ filterByType }}</p> -->
+                        <br />
+                        <br />
+                        <div class="previewDiv animate__animated animate__slideInLeft" style="width:100%;">
+                            <div v-for="(plan, index) in plans.filter(plan => plan.id === previewPlan)" :key="index">
+                                <b class="ft p6">{{ plan.planName }}</b>
+                                <p class="ft p7">Age Group {{ plan.ageGroup }}</p>
+                                <p class="ft p7">{{ plan.planPolicy }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
 
             </div>
-            
+
+
+        </div>
+
+        <div class=" mt10" style="margin-top:2%;width:60%;margin-left:5%;height:fit-content;padding-bottom:5%" v-if="!isLoggedin">
+            <div class="wt p6 ft b2" style="position:absolute; left:25%"><router-link to="/Login">Log In </router-link>or <router-link to="/Register">Sign Up </router-link>to contact our advisors</div>
+
+            <div class="w100 h100 blurFrame">
+            <div class="getInTouch pd5" style="margin-left: 15%;">
+                <p class="ft p5 pd5 cntr wt" style="float:left;">Get in Touch</p>
+                <br />
+                <br />
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Plan</P>
+                    <select ref="plan" class="ft inpClear" style="height:30px" v-model="selectedPlan" :disabled="true">
+
+                        <option v-for="(plan, index) in plans" class="ft l" :key="index">
+                            {{ plan.planName }}
+                        </option>
+                    </select>
+                    <p class="ft l p8 pd5 second">Click on a plan above to display it here</p>
+
+                </div>
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Name</P>
+                    <input ref="name" style="width:20%;height:30px" v-model="nameInput" class="inpClear ft l pd5"
+                        placeholder="Tim Berners-Lee" />
+                </div>
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Phone #</P>
+                    <input ref="phone" style="width:20%;height:30px" v-model="phoneInput" class="inpClear ft l pd5"
+                        placeholder="91111111" />
+
+                </div>
+
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Email</P>
+                    <input ref="email" style="width:15vw;height:30px" class="inpClear ft l pd5 wt"
+                        placeholder="tim@gmail.com" :value="usEmail" :disabled="true"/>
+
+                </div>
+
+
+
+
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Header</P>
+                    <input ref="title" style="width:20%;height:30px" v-model="titleInput" class="inpClear ft l pd5"
+                        placeholder="Title" />
+
+                </div>
+
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Question</P>
+                    <textarea ref="newmessage" style="width:70%;height:90px" v-model="questionArea" class="ft l pd5"
+                        placeholder="I'd like to get this plan, could i get in contact with an advisor?"></textarea>
+
+                </div>
+                <br />
+                <div style="float:left" class="wt">Please provide your consent by ticking on the checkbox:</div>
+                <br />
+                <div class="f p8">
+
+
+                    <label class="wfc pd5 ft l wt">
+                        <input type="checkbox" name="cnst" v-model="disclosure" />
+                        By providing your personal data and submitting this form, you consent to the collection, use,
+                        disclosure, processing, and retention of your personal data by Omnium, for the purpose of addressing
+                        your inquiry ("Purpose"), in accordance with the Omnium Personal Data Policy. You also consent to
+                        being contacted by Omnium via your provided contact details for such Purpose.<br />
+                        [1] "Omnium Persons" refers to Omnium Singapore Private Limited, its associated
+                        persons/organisations, its and their third-party service providers and its and their
+                        representatives, whether within or outside Singapore.
+                        <br /><br />
+                        [2] Available on Omnium Personal Data Policy (Singapore).
+                        <br /><br />
+                        [3] If you have provided your mobile number, we will contact you via voice call and/or text message
+                        (e.g. SMS/MMS). If you have provided your email address, we will contact you via email.
+                    </label>
+                </div>
+                <br />
+                <button class="brButton primarybg pd5 hv" :disabled="!disclosureEnabled"
+                    v-bind:class="{ 'disabled-button': !disclosureEnabled }" style="float:right;"
+                    >Submit</button>
+
+                <p class="errMsg ft l">{{ errMsg }}</p>
+
+
+            </div>
+        </div>
         </div>
 
 
-    </div>
-        <div class="bs mt10 cntr" style="margin-top:2%;width:60%;height:fit-content;padding-bottom:5%;border:1px solid black">
-            <form class="getInTouch pd5">  
-                                    <p class="ft p5 pd5 cntr">Get in Touch:</p>
-                                    <div class="f p7">
-                                        <p class="ft l pd5">Salutation</p>
-                                    <label class="wfc pd5 ft l">      
-                                        <input type="radio" name="q1" v-model="salutation"/>
-                                        Mr
-                                    </label>
-                                    <label class="wfc pd5 ft l">      
-                                        <input type="radio" name="q1" v-model="salutation"/>
-                                        Mrs
-                                    </label>
-                                    <label class="wfc pd5 ft l">      
-                                        <input type="radio" name="q1" v-model="salutation"/>
-                                        Mdm
-                                    </label>
-                                    </div>
-                                    <div class="f p7">
-                                        <P class="wfc pd5 ft l" style="width:10%;text-align:left">Name</P>
-                                        <input ref="name" style="width:20%" v-model="nameInput" class="inp ft l pd5" placeholder="Tim Berners-Lee"/>
-                                        <!-- creator of html -->
-                                    </div>
-                                    <div class="f p7">
-                                        <P class="wfc pd5 ft l" style="width:10%;text-align:left">Phone #</P>
-                                        <input ref="phone" style="width:20%" v-model="phoneInput" class="inp ft l pd5" placeholder="91111111" />
+        <div class=" mt10" style="margin-top:2%;width:60%;margin-left:5%;height:fit-content;padding-bottom:5%" v-if="isLoggedin">
+            <div class="getInTouch pd5" style="margin-left: 15%;">
+                <p class="ft p5 pd5 cntr wt" style="float:left;">Get in Touch</p>
+                <br />
+                <br />
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Plan</P>
+                    <select ref="plan" class="ft inpClear" style="height:30px" v-model="selectedPlan" :disabled="true">
 
-                                    </div>
+                        <option v-for="(plan, index) in plans" class="ft l" :key="index">
+                            {{ plan.planName }}
+                        </option>
+                    </select>
+                    <p class="ft l p8 pd5 second">Click on a plan above to display it here</p>
 
-                                    <div class="f p7">
-                                        <P class="wfc pd5 ft l" style="width:10%;text-align:left">Email</P>
-                                        <input ref="email" style="width:20%" v-model="emailInput" class="inp ft l pd5" placeholder="tim@gmail.com" />
+                </div>
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Name</P>
+                    <input ref="name" style="width:20%;height:30px" v-model="nameInput" class="inpClear ft l pd5"
+                        placeholder="Tim Berners-Lee" />
+                </div>
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Phone #</P>
+                    <input ref="phone" style="width:20%;height:30px" v-model="phoneInput" class="inpClear ft l pd5"
+                        placeholder="91111111" />
 
-                                    </div>
+                </div>
 
-                                    <div class="f p7">
-                                        <P class="wfc pd5 ft l" style="width:10%;text-align:left">Plan</P>
-                                        <select ref="plan" class="ft inp" style="height:30px" v-model="selectedPlan">
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Email</P>
+                    <input ref="email" style="width:15vw;height:30px" class="inpClear ft l pd5 wt"
+                        placeholder="tim@gmail.com" :value="usEmail" :disabled="true"/>
 
-                                            <option v-for="(plan, index) in plans" class="ft l" :key="index">
-                                                    {{ plan.name }}                                                   
-                                            </option>
-                                        </select>
-                                        <p class="ft l p8 pd5 second">Click on a plan above to display it here</p>
+                </div>
 
-                                    </div>
 
-                                    
-                                    <div class="f p7">
-                                        <P class="wfc pd5 ft l" style="width:10%;text-align:left">Header</P>
-                                        <input ref="title" style="width:20%" v-model="titleInput" class="inp ft l pd5" placeholder="Title" />
 
-                                    </div>
 
-                                    <div class="f p7">
-                                        <P class="wfc pd5 ft l" style="width:10%;text-align:left">Question</P>
-                                        <textarea ref="newmessage" style="width:70%;height:90px" v-model="questionArea" class="inp ft l pd5" placeholder="I'd like to get this plan, could i get in contact with an advisor?"></textarea>
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Header</P>
+                    <input ref="title" style="width:20%;height:30px" v-model="titleInput" class="inpClear ft l pd5"
+                        placeholder="Title" />
 
-                                    </div>
-                                    <br/>
-                                    <div style="float:left">Please provide your consent by ticking on the checkbox:</div>
-                                    <br/>
-                                    <div class="f p8">
+                </div>
 
-                                        
-                                        <label class="wfc pd5 ft l">      
-                                        <input type="checkbox" name="cnst" v-model="disclosure"/>
-                                        By providing your personal data and submitting this form, you consent to the collection, use, disclosure, processing, and retention of your personal data by Omnium, for the purpose of addressing your inquiry ("Purpose"), in accordance with the Omnium Personal Data Policy. You also consent to being contacted by Omnium via your provided contact details for such Purpose.<br/>
-                                        [1] "Omnium Persons" refers to Omnium Singapore Private Limited, its associated persons/organisations, its and their third-party service providers and its and their representatives, whether within or outside Singapore.
-                                            <br/><br/>
-                                        [2] Available on Omnium Personal Data Policy (Singapore).
-                                            <br/><br/>
-                                        [3] If you have provided your mobile number, we will contact you via voice call and/or text message (e.g. SMS/MMS). If you have provided your email address, we will contact you via email.
-                                    </label>
-                                    </div>
-                                    <br/>
-                                    <button class="brButton primarybg pd5" :disabled="!disclosureEnabled"  v-bind:class="{ 'disabled-button': !disclosureEnabled }" style="float:right;" @click="addNewMessage();goRedirect()">Submit</button>
+                <div class="f p7">
+                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Question</P>
+                    <textarea ref="newmessage" style="width:70%;height:90px" v-model="questionArea" class="ft l pd5"
+                        placeholder="I'd like to get this plan, could i get in contact with an advisor?"></textarea>
 
-                                    
+                </div>
+                <br />
+                <div style="float:left" class="wt">Please provide your consent by ticking on the checkbox:</div>
+                <br />
+                <div class="f p8">
 
-                        </form>
+
+                    <label class="wfc pd5 ft l wt">
+                        <input type="checkbox" name="cnst" v-model="disclosure" />
+                        By providing your personal data and submitting this form, you consent to the collection, use,
+                        disclosure, processing, and retention of your personal data by Omnium, for the purpose of addressing
+                        your inquiry ("Purpose"), in accordance with the Omnium Personal Data Policy. You also consent to
+                        being contacted by Omnium via your provided contact details for such Purpose.<br />
+                        [1] "Omnium Persons" refers to Omnium Singapore Private Limited, its associated
+                        persons/organisations, its and their third-party service providers and its and their
+                        representatives, whether within or outside Singapore.
+                        <br /><br />
+                        [2] Available on Omnium Personal Data Policy (Singapore).
+                        <br /><br />
+                        [3] If you have provided your mobile number, we will contact you via voice call and/or text message
+                        (e.g. SMS/MMS). If you have provided your email address, we will contact you via email.
+                    </label>
+                </div>
+                <br />
+                <button class="brButton primarybg pd5 hv" :disabled="!disclosureEnabled"
+                    v-bind:class="{ 'disabled-button': !disclosureEnabled }" style="float:right;"
+                    @click="addNewMessage">Submit</button>
+
+                <p class="errMsg ft l">{{ errMsg }}</p>
+
+
+            </div>
 
         </div>
 
     </div>
 </template>
 <script>
-  import {getFirestore,collection,addDoc} from 'firebase/firestore';
-  
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc, query, onSnapshot } from 'firebase/firestore';
+import { app } from '@/configs'
+import { ref, onUnmounted } from 'vue';
 
 
-  const firebaseConfig = {
-  apiKey: "AIzaSyD8kn26Sj-wvYhB6h-vALgxWoZ2UyujHyI",
-  authDomain: "hana-firebase-auth.firebaseapp.com",
-  projectId: "hana-firebase-auth",
-  storageBucket: "hana-firebase-auth.appspot.com",
-  messagingSenderId: "257456893215",
-  appId: "1:257456893215:web:7da412256ffcbfeb62142a",
-  measurementId: "G-VNEDYMGDTL"
-};
-
-
-const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const errMsg = ref();
+const isLoggedin = ref(false);
+
 export default {
 
     components: {
@@ -205,152 +288,204 @@ export default {
 
     data() {
         return {
+            plans: ref([]),
             disclosure: false,
-            plans: [
-                { id: 1, company: "Company A", name: "A-Secure", type: "Life", typeID: 1, agegroup: "18-35", target: "Young adults starting their careers", income: "$30,000 - $50,000", details: "A-Secure's description: For young adults, life insurance is crucial to building a strong foundation with which you and your children may stand on 50 years from now. With A-Secure, safety and security will be out of your hands and into the hands of trusted professionals ready to catch you when you fall." },
-                { id: 2, company: "Company B", name: "B-Protection", type: "Health", typeID: 2, agegroup: "35-55", target: "Mid-career professionals and families", income: "$50,000 - $80,000", details: "B-Protection's description: Lorem Ipsum" },
-                { id: 3, company: "Company C", name: "C-Safe", type: "Disability", typeID: 5, agegroup: "55+", target: "Retirees and seniors", income: "$30,000+", details: "C-Safe's description: Lorem Ipsum" },
-                { id: 4, company: "Company A", name: "A-Care", type: "Home", typeID: 3, agegroup: "25-45", target: "Parents and families with young children", income: "$60,000 - $100,000", details: "A-Care's description: Lorem Ipsum" },
-                { id: 5, company: "Company B", name: "B-Auto", type: "Auto", typeID: 4, agegroup: "25-45", target: "Young professionals and families", income: "$40,000 - $70,000", details: "B-Auto's description: Lorem Ipsum" },
-                { id: 6, company: "Company C", name: "C-Retire", type: "Long-Term", typeID: 6, agegroup: "55+", target: "Retirees and seniors", income: "$50,000+", details: "C-Retire's description: Lorem Ipsum" },
-                { id: 7, company: "Company A",  name: "A-Future", type: "Life", typeID: 1, agegroup: "30-50", target: "Professionals planning for retirement", income: "$70,000 - $120,000", details: "A-Future's description: Lorem Ipsum" },
-                { id: 8, company: "Company B", name: "B-Health", type: "Health", typeID: 2, agegroup: "N/A", target: "Adults of all ages looking for comprehensive health insurance coverage", income: "No specific income requirement", details: "B-Health's description: Lorem Ipsum" },
-                { id: 9, company: "Company C", name: "C-Ease", type: "Life", typeID: 1, agegroup: "N/A", target: "Adults of all ages looking for affordable and flexible insurance coverage", income: "No specific income requirement", details: "C-Ease's description: Lorem Ipsum" },
-                { id: 10, company: "Company D", name: "D-Auto", type: "Auto", typeID: 4, agegroup: "18-30", target: "Young adults starting their careers", income: "Low to medium income", details: "D-Auto's description: Lorem Ipsum" },
-                { id: 11, company: "Company D", name: "D-Secure", type: "Life", typeID: 1, agegroup: "18-30", target: "Young adults starting their careers", income: "Low to medium income", details: "D-Secure's description: Lorem Ipsum" },
-                { id: 12, company: "Company D", name: "D-Health", type: "Health", typeID: 2, agegroup: "18-30", target: "Young adults starting their careers", income: "Low to medium income", details: "D-Health's description: Lorem Ipsum" },
-                { id: 13, company: "Company E", name: "E-Ease", type: "Life", typeID: 1, agegroup: "18-30", target: "Young adults starting their careers", income: "Low to medium income", details: "E-Ease's description: Lorem Ipsum" },
-                { id: 14, company: "Company E", name: "E-Auto", type: "Auto", typeID: 4, agegroup: "18-30", target: "Young adults starting their careers", income: "Low to medium income", details: "E-Auto's description: Lorem Ipsum" },
-                { id: 15, company: "Company E", name: "E-Life", type: "Life", typeID: 1, agegroup: "18-30", target: "Young adults starting their careers", income: "Low to medium income", details: "E-Life's description: Lorem Ipsum" },
-
-            
-            ],
             selectedType: "All Plans",
-            previewPlan: 2,
+            previewPlan: 1,
             favorites: [1, 5, 6, 8, 9],
-            filterByType: [1, 2, 3, 4, 5, 6],
+            filterByType: ["Life", "Health", "Auto", "Disability", "Home", "Long-Term"],
             holdPlanName: "",
+            selectedPlan: "",
+            
 
         }
     },
     computed: {
-    disclosureEnabled() {
-      return this.disclosure;
-    }
+        disclosureEnabled() {
+            return this.disclosure;
+        }
     },
     watch: {
         selectedType(newValue) {
             if (newValue === "0") {
-                this.filterByType = [1, 2, 3, 4, 5, 6];
+                this.filterByType = ["Life", "Health", "Auto", "Disability", "Home", "Long-Term"];
             } else {
                 // this.filterByType = [newValue]
                 this.filterByType = [newValue];
-                this.filterByType = this.filterByType.map(val => parseInt(val));
+                this.filterByType = this.filterByType.map(val => String(val));
 
-                
+
             }
         }
     },
 
 
     methods: {
-
         goRedirect() {
-      this.$router.push({ path: '/Redirect'})
-    },
+            this.$router.push({ path: '/Redirect' })
+        },
         setPreviewPlan(id) {
             this.previewPlan = id;
             let plan = this.plans.find(plan => plan.id === id)
             if (plan) {
-                this.selectedPlan = plan.name
+                this.selectedPlan = plan.planName
             }
-            
-        },
-        setPlanName(name) {
-            this.holdPlanName = name;
-        },
-        scrollBottom() {
-      let currentPosition = window.pageYOffset
-      let targetPosition = document.body.scrollHeight
 
-      let animationId = setInterval(function() {
-        if (currentPosition >= targetPosition) {
-          clearInterval(animationId)
-          return
+        },
+
+        getIcon(val) {
+            if (val === "Life") {
+                return
+
+            }
+        },
+
+        scrollBottom() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const space = 200; // set the amount of space you want to leave
+
+            const scrollTo = documentHeight - windowHeight - space;
+            window.scrollTo({
+                top: scrollTo,
+                behavior: 'smooth', // optional smooth scrolling
+            });
+        },
+
+        addNewMessage: function () {
+            if (this.$refs.name.value.trim()
+                && this.$refs.phone.value.trim()
+                && this.$refs.email.value.trim()
+                && this.$refs.plan.value.trim()
+                && this.$refs.title.value.trim()
+                && this.$refs.newmessage.value.trim()
+            ) {
+                addDoc(collection(db, 'messages'), {
+                    title: this.$refs.title.value,
+                    text: this.$refs.newmessage.value, //textarea question
+                    phone: this.$refs.phone.value, // phone number
+                    email: this.$refs.email.value, // email
+                    name: this.$refs.name.value, // name
+                    plan: this.$refs.plan.value, //plan name && id
+                    visibleTo: "Advisors",
+                    date: Date.now(),
+                    replies: []
+
+                })
+
+                this.goRedirect();
+            }
+            else {
+                errMsg.value = "One or more fields is incomplete."
+
+            }
         }
 
-        currentPosition += 50
-        window.scrollTo(0, currentPosition)
-      }, 10)
-        },
 
-        addNewMessage:function() {
-            addDoc(collection(db,'messages'),{
-            title:this.$refs.title.value,
-            text:this.$refs.newmessage.value, //textarea question
-            phone:this.$refs.phone.value, // phone number
-            email:this.$refs.email.value, // email
-            name:this.$refs.name.value, // name
-            plan:this.$refs.plan.value, //plan name || id
-            visibleTo:"All",
-            date:Date.now(),
-            // replies: [{header: "", email: "", date: "", text: ""}]
-            replies: []
+
+    },
+    mounted() {
+        const latestQuery = query(collection(db, "plans"));
+        const livePlans = onSnapshot(latestQuery, (snapshot) => {
+            this.plans = snapshot.docs.map((doc) => {
+                return {
+                    ageGroup: doc.data().ageGroup,
+                    coverageType: doc.data().coverageType,
+                    minIncome: doc.data().minIncome,
+                    planName: doc.data().planName,
+                    planPolicy: doc.data().planPolicy,
+                    provider: doc.data().provider,
+                    shortDescription: doc.data().shortDescription,
+                    id: doc.data().id,
+
+
+                }
             });
-            }
-    //     addNewMessage:function() {
-    //     addDoc(collection(db,'messages'),{
-    //       title:this.$refs.title.value,
-    //       text:this.$refs.newmessage.value, //textarea question
-    //       phone:this.$refs.phone.value, // phone number
-    //       email:this.$refs.email.value, // email 
-    //       name:this.$refs.name.value, // name
-    //       plan:this.$refs.plan.value, //plan name || id
-    //       visibleTo:"All",
-    //       date:Date.now(),
-    //       replies: []
-    //     });      
-    //   },
-
-
+        });
+        onUnmounted(livePlans)
     }
 }
 
 </script>
+
+
+
+<script setup>
+import { onMounted } from 'vue';
+import { getAuth,onAuthStateChanged } from '@firebase/auth';
+var usID = ref('');
+var usEmail = ref('');
+let auth;
+
+onMounted(() => {
+  auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+
+      isLoggedin.value = true;
+      usID.value = user.uid;
+      usEmail.value = user.email;
+
+    }
+    else {
+      isLoggedin.value = false;
+    }
+    return {
+      usID
+    }
+  })
+})
+
+
+</script>
 <style>
 .fullContainer {
-    width: 1900px;
+    width: 98vw;
     height: 70%;
     display: flex;
 }
 
 .dropdownBox {
     position: relative;
-  display: inline-block;
-  width: 300px;
-  height: 30px;
-  margin: 10px;
-  border: 1px solid #999;
-  border-radius: 4px;
-  overflow: hidden;
+    display: inline-block;
+    width: 300px;
+    height: 30px;
+    margin: 10px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 
 
 .leftContainer {
-    width: fit-content;
+    width: 60vw;
     height: 100%;
     margin-left: 1%;
-    margin-right:2%;
+    margin-right: 2%;
 
 }
 
 .planDisplay {
-    display:flex; 
-    flex-wrap:wrap; 
-    height:1000px;
-    width:100%;
-    overflow:scroll;
+    display: flex;
+    flex-wrap: wrap;
+    height: 1000px;
+    width: 100%;
+    overflow: scroll;
+}
+
+
+.planDesc {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: -5px;
+    height: 25%;
+    width: 100%;
+    min-height: 25%;
+}
+
+.tripleSection {
+    width: 100%;
 }
 
 #planPreview {
@@ -364,76 +499,24 @@ export default {
     padding: 10px;
     border: 1px solid black;
     background-color: whitesmoke;
+    
+}
+
+.blurFrame {
+    filter: blur(3px);
+    pointer-events: none;
+}
+#planContainer {
+    transition: background-color .2s
+}
+#planContainer:active {
+    background-color:darkgray;
+}
+#planContainer:hover {
+    transform: scale(1.05);
+    transition: transform .2s
+
 }
 
 
-.allPlanstitle {
-
-    font-size: 26px;
-    font-weight: 500;
-
-}
-
-.planDesc {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: -5px;
-    height: 30%;
-    width: 100%
-}
-
-.planEa {
-    /* box-shadow: 9px 7px 0px 0px rgba(0,0,0,0.32);
-    -webkit-box-shadow: 9px 7px 0px 0px rgba(0,0,0,0.32);
-    -moz-box-shadow: 9px 7px 0px 0px rgba(0,0,0,0.32); */
-    width: 230px;
-    height: 350px;
-    padding: 10px;
-    border: 1px solid black;
-    margin: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    background-color:whitesmoke;
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    transition:all .5s;
-}
-
-
-.planEa:hover {
-    background-color: lightgray;
-}
-
-.planEa:active {
-    background-color: gainsboro;
-}
-
-.previewPlanName {
-    font-size: 22px;
-    font-weight: 500;
-}
-
-.favoritedText {
-    font-size: 16px;
-    font-weight: 400;
-    margin-left: 5px;
-    margin-top: 3%;
-
-}
-
-.previewPlanDesc {
-    font-size: 16px;
-
-}
-
-.tripleSection {
-    width: 100%;
-}
-
-.favoritesIcon {
-    display: flex;
-    align-items: center;
-    height: 32px;
-}
 </style>

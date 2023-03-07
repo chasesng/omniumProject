@@ -6,14 +6,14 @@
     <p class="p2 ft b primary">Contact Us</p>
     <p class="p3 ft l second">How may we help you?</p>
     <br />
-    <router-link to="Support/FAQ" class="p4" style="color:rgb(34,168,218)">FAQ ▶</router-link>
+    <router-link to="Support/FAQ" class="p4" style="color:rgb(34,168,218)">FAQ <i class="fa-solid fa-chevron-right"></i></router-link>
     <br />
     <br />
     <br />
     <div class="firstSector">
-      <div class="sectionOne" id="section">
+      <div class="sectionOne wt animate__animated animate__slideInUp" id="section">
         <p class="ft p3 b mt10">Email Us</p>
-        <img class="reachIcon" src="../assets/icons/Mail6679-84.png" />
+        <i class="fa-solid fa-envelope"></i>
         <div class="ft l">
           <p>support@omnium.com</p>
           <p>Email us for non-urgent matters and we will get back to you in 3-5 Business Days.</p>
@@ -21,9 +21,9 @@
 
       </div>
 
-      <div class="sectionTwo" id="section">
+      <div class="sectionTwo wt animate__animated animate__slideInUp" id="section">
         <p class="ft p3 b mt10">Call Us</p>
-        <img class="reachIcon" src="../assets/icons/Contact52971-84.png" />
+        <i class="fa-solid fa-phone"></i>        
         <div class="ft l">
           <p>1800 XXX XXXX</p>
           <p>Call us for support regarding a plan you may be interested in and learn more about. </p>
@@ -32,9 +32,9 @@
           <p>9am - 5pm</p>
         </div>
       </div>
-      <div class="sectionThree" id="section">
+      <div class="sectionThree wt animate__animated animate__slideInUp" id="section">
         <p class="ft p3 b mt10">Chat with Us</p>
-        <img class="reachIcon" src="../assets/icons/Chat5907-84.png" />
+        <i class="fa-solid fa-comments"></i>
         <div class="ft l">
           <p><router-link to="liveChat">Live Chat</router-link></p>
           <p>Get support from one of our support team almost immediately.</p>
@@ -49,11 +49,11 @@
       Consumer Guides</p>
     <br />
     <div class="secondSector">
-      <div class="firstSection2" id="section"
+      <div class="firstSection2 hv primarybg" id="section"
         style="border:1px solid gray; margin:auto;display:inline-block; cursor:pointer" @click="goToGuide">
-        <p class="ft b p5 second mt10">Your Guide to Insurance ▶
+        <p class="ft b p5 wt mt10">Your Guide to Insurance <i class="fa-solid fa-chevron-right"></i>
         </p>
-        <p class="ft b p8 second mt10">Provided by the Life Insurance Association of Singapore</p>
+        <p class="ft b p8 wt mt10">Provided by the Life Insurance Association of Singapore</p>
       </div>
     </div>
 
@@ -83,7 +83,6 @@ export default {
   width: 100%;
   display: flex;
   margin: auto;
-  background-color: rgb(246, 245, 243);
   padding: 5px 20%;
 
 }

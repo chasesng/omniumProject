@@ -1,8 +1,14 @@
 
 <template>
-<div id="app" class="bgControl" :style="{ backgroundImage: `url(${require('./assets/whitebg.jpg')})`}">
+
+<!-- <div id="app" class="bgControl" :style="{ backgroundImage: `url(${require('./assets/whitebg.jpg')})`}"> -->
+  <!-- <div id="app" class="bgControl" style="background-color:rgba(243,246,251,255)"> -->
+      <div id="app" class="bgControl" style="background-color:rgba(33,33,45,255)">
+
+
+  <LoadingScreen v-if="isLoading"></LoadingScreen>
   <MainHome msg = "Welcome"/>
-  <img id = "logo" src="./assets/icons/OmniumLogo_Default.png"/>
+  <!-- <img id = "logo" src="./assets/icons/OmniumLogo_Default.png"/> -->
   <br/>
 
   <headerControl/>
@@ -17,10 +23,12 @@
 </template>
 
 <script>
+import LoadingScreen from "@/subComponent/loadingScreen";
 import headerControl from '@/components/headerControl.vue'
 import footerControl from '@/components/footerControl.vue'
 
 export default {
+
   name: "App",
   state: {
   user: {
@@ -41,14 +49,20 @@ export default {
     state.user.data = data;
   }
 }
+
 },
   data() {
     return {
-      
+      isLoading: true
     }
   },
   methods: {
     
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   },
   //   mounted() {
   //   if(!this.authenticated) {
@@ -68,6 +82,7 @@ export default {
   components: {     
     headerControl,
     footerControl,
+    LoadingScreen
     
    },
 
@@ -83,7 +98,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 

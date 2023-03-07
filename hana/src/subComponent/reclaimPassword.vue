@@ -1,10 +1,10 @@
 <template>
     <br/>
-    <div class="ib bs sb" style="width:30%;">
+    <div class="ib bs sb wtbg" style="width:30%;">
         <div class="w100" style="height:200px;overflow:hidden">
-            <img id = "logo"  src="../assets/icons/OmniumLogo_Default.png" style="vertical-align: middle; width:100%"/>
+            <img id = "logo"  src="../assets/icons/OmniumLogo_Default.png" style="vertical-align: middle;max-height:100%;max-width:100% ; width:100%"/>
         </div>
-  <p class="ft l p9 mt50">Forgot your password? Enter the email you used to sign up to the website to reset the password.</p>
+  <p class="ft l p9 mt50">Forgot or changing your password? Enter the email you used to sign up to the website to reset the password.</p>
         <p class="ft l mt10 p9">We will send you a recovery email if the email exists for an account.</p>
         <form style="height:fit-content;" @submit.prevent="sendEmail">
         <div class="ib w100">
