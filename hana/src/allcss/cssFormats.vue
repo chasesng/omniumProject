@@ -217,6 +217,7 @@
 .brButton { 
     /* big button */
   width:200px;
+  background-color:#174ea6;
   height:50px;
   color:white;
   font-size:20px;

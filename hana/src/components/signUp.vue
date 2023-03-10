@@ -1,7 +1,7 @@
 <template>
   
   
-  <div class="w100 ib">
+  <div class="w100 ib  animate__animated animate__fadeIn">
     <div class="labelTop cntr" style="display:inline-block; text-align:left;">
       <div class="sign-up-container ft l sb bs cntr" style="width:70%;background-color:white">
     <br/>
@@ -14,17 +14,21 @@
         <div class="label-column">
           <label for="nric" :style="{color: labelColors[3]}">NRIC *</label>
         </div>
-        <div class="input-column">
-          <input id="nric" class="inpClear inp" type="text" @focus="changeLabelColor(3)" @blur="resetLabelColor(3)" placeholder=" Enter your NRIC here" v-model="nric"/>
+        <div class="input-column f">
+          <input id="nric" class="inpClear inp" type="text" @focus="changeLabelColor(3)" @blur="resetLabelColor(3)" placeholder="Enter your NRIC here" v-model="nric"/>
+          <div v-if="checkNRIC(nric) === true" class="l p9" style="color:green;font-weight:lighter;margin-left:1%">You have entered a valid NRIC</div>
+
         </div>
+
+        
       </div>
 
       <div class="form-group">
         <div class="label-column">
           <label for="fullname" :style="{color: labelColors[4]}">Full Name (As shown on IC) *</label>
         </div>
-        <div class="input-column">
-          <input id="fullname" class="inpClear inp" type="text" @focus="changeLabelColor(4)" @blur="resetLabelColor(4)" placeholder=" Full Name" v-model="username"/>
+        <div class="input-column f">
+          <input id="fullname" class="inpClear inp" type="text" @focus="changeLabelColor(4)" @blur="resetLabelColor(4)" placeholder="Full Name" v-model="username"/>
         </div>
       </div>
 
@@ -32,8 +36,10 @@
         <div class="label-column">
           <label for="email" :style="{color: labelColors[0]}">Email *</label>
         </div>
-        <div class="input-column">
-          <input id="email" class="inpClear inp" type="email" @focus="changeLabelColor(0)" @blur="resetLabelColor(0)" placeholder=" name@example.com" v-model="email"/>
+        <div class="input-column f">
+          <input id="email" class="inpClear inp" type="email" @focus="changeLabelColor(0)" @blur="resetLabelColor(0)" placeholder="name@example.com" v-model="email"/>
+          <div v-if="checkEmail(email) === true" class="l p9" style="color:green;font-weight:lighter;margin-left:1%;">Email is valid</div>
+
         </div>
       </div>
       <div class="form-group">
@@ -41,8 +47,9 @@
           <label for="password" :style="{color: labelColors[1]}">Password *</label>
         </div>
         <div class="passwordStatement" style="display:inline-block">
-        <div class="input-column"> 
-          <input id="password" class="inpClear inp" style="margin-left:-3%;" type="password" @focus="changeLabelColor(1)" @blur="resetLabelColor(1)" placeholder=" Password" v-model="password"/>
+        <div class="input-column f" style="width:auto"> 
+          <input id="password" class="inpClear inp" type="text" @focus="changeLabelColor(1)" @blur="resetLabelColor(1)" placeholder="Password" v-model="password"/>
+          <div v-if="checkPassword(password) === true" class="l p9" style="color:green;font-weight:lighter;margin-left:1%;">Password is valid</div>
         </div>
         <div class="l p9" style="color:gray;font-weight:lighter;margin-left:1%">Password must contain at least 8 characters, with 1 uppercase & lowercase.</div>
       </div>
@@ -51,11 +58,14 @@
         <div class="label-column">
           <label for="confirmPassword" :style="{color: labelColors[2]}">Confirm Password *</label>
         </div>
-        <div class="input-column">
-          <input id="confirmPassword" class="inpClear inp" type="password" @focus="changeLabelColor(2)" @blur="resetLabelColor(2)" placeholder=" Confirm Password" v-model="confirmPassword"/>
+        <div class="input-column f">
+          <input id="confirmPassword" class="inpClear inp" type="text" @focus="changeLabelColor(2)" @blur="resetLabelColor(2)" placeholder="Confirm Password" v-model="confirmPassword"/>
+          <div v-if="checkMatch(password, confirmPassword) === true && password != '' && confirmPassword != ''" class="l p9" style="color:green;font-weight:lighter;margin-left:1%;">Passwords match</div>
+          <div v-if="checkMatch(password, confirmPassword) === false && password != '' && confirmPassword != ''" class="l p9" style="color:red;font-weight:lighter;margin-left:1%;">Passwords do not match</div>
+
         </div>
       </div>
-      <p class="errMsg ft l" style="height:33px">{{ errMsg }}</p>
+      <div class="errMsg ft l" style="height:33px">{{ errMsg }}</div>
 
 
 <br/>
@@ -64,7 +74,7 @@
         <router-link class="ft l" style="padding-left:10px" to="/Login">Already have an account? log in here</router-link>
         <hr/>
       </div>
-      <!-- HERE -->
+      <!-- <button class="brButton primarybg hv" @click="checkInput">Check Input</button> -->
       <button class="brButton primarybg hv" style="margin-bottom:50px;margin-left:1%" @click="register()" type="submit">Submit</button>
     </form>
     </div>
@@ -85,18 +95,74 @@ const db = getFirestore(app);
 
 const email = ref('')
 const nric = ref('')
-
 const password = ref('')
 const router = useRouter();
 const confirmPassword = ref('')
-const errMsg = ref();
+var errMsg = ref('');
 const username = ref();
 
 
+    function checkNRIC(input) {
+      const regex = /^[STFG]\d{7}[A-Z]$/;
+        if (!regex.test(input) === true) {
+          return false
+        }
+        else {
+          return true
+        }
+    }
+    function checkPassword(input) {
+      const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,31}$/;
+      if (!regex.test(input) === true) {
+        return false;
+      }
+      else {
+        return true;
+
+      }
+    }
+
+    function checkEmail(input) {
+      const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      if (!regex.test(input) === true) {
+        return false;
+      }
+      else {
+        return true;
+
+      }
+    }
+
+    function checkMatch(input, confirmInput) {
+      if (input.trim() != confirmInput.trim()) {
+        return false;
+      }
+      else {
+        return true
+      }
+    }
+    function rQuotes(input) {
+      // regex will read string with the quotes, use this to remove them, works for ref const specifically... to alter for others, remove .value
+      return input.value.replace(/['"]+/g, '')
+    }
+
+const checkInput = () => {
+  const nricPass = checkNRIC(rQuotes(nric))
+  const emailPass = checkEmail(rQuotes(email))
+  const passwordPass = checkPassword(rQuotes(password))
+  const passwordMatch = checkMatch(rQuotes(password), rQuotes(confirmPassword))
+
+  
+
+  return nricPass + emailPass + passwordPass + passwordMatch
+
+}
+
 const register = () => {
 
-  if (password.value.trim() === confirmPassword.value.trim()) {
-     createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+
+  if (checkInput() === 4) {
+     createUserWithEmailAndPassword(getAuth(), email.value.trim(), password.value.trim())
         .then((userCredentials) => {
           const user = userCredentials.user;
           const userID = user.uid;
@@ -141,7 +207,7 @@ const register = () => {
      })
     }
     else {
-      errMsg.value = "Passwords do not match";
+      errMsg.value = "One or more fields have been entered incorrectly, please confirm again";
     }     
     };  
     
@@ -159,9 +225,8 @@ export default {
 
   
     return {
-
-
-  
+      nricValid: 'False',
+      nric: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -173,22 +238,8 @@ export default {
     }
   },
 
-  //   validations: {
-  //   email: {
-  //     required,
-  //     email
-  //   },
-
-  //   password: {
-  //     required,
-  //     minLength: minLength (8)
-  //   },
-  //   confirmPassword: {
-  //     sameAsPassword: sameAs('password')
-  //   },
-    
-  // },
   methods: {
+
 
     changeLabelColor(index) {
       this.labelColors[index] = "black";

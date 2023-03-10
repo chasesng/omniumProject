@@ -2,7 +2,7 @@
     <div>
         <br />
         <div class="ib cntr wtbg" style="height:100vh;margin-top:100px">
-            <div style="width:90vw; height:200px; overflow:hidden;z-index:2;">
+            <div style="width:100vw; height:200px; overflow:hidden;z-index:2;">
                 <img src="../assets/banners/banner1.jpg">
             </div>
 
@@ -31,12 +31,10 @@
                             <p class="fourth ft b p7">Occupation</p>
                             <p class="ft">{{ user.occupation }}</p>
 
-                            <p class="fourth ft b p7">Gender</p>
-                            <p ref="gender" class="ft">{{ user.gender }}</p>
-                            
+                        
 
                             <div style="visibility:hidden">{{ usDetails.push(user.username, user.from, user.age,
-                                user.occupation, user.gender, user.email,user.userType,user.nric) }}
+                                user.occupation, user.gender, user.email,user.userType,user.nric,user.assignmentArray) }}
 
                             </div>
 
@@ -67,7 +65,7 @@
                         <div class="f mb10 animate__animated animate__fadeInLeft" style="height:33px;">
                             <label class="fourth p8 b ft pd5" style="width:20%">User Name</label>
                             <input class="inpClear ft b p8 pd5" placeholder="Enter your user name..." ref="username"
-                                :value="user.username" />
+                                :value="user.username"/>
                         </div>
 
                         <div class="f mb10 animate__animated animate__fadeInLeft" style="height:33px;">
@@ -103,14 +101,14 @@
 
                             </select>
                         </div>
-
+                                              
                         <div class="f mb10" style="height:33px;">
                             <label class="fourth p8 b ft pd5" style="width:20%">Password</label>
                             <router-link class="ft l p8 pd5" style="height:33px;" to="/ForgotPassword">Change your
                                 password</router-link>
 
                         </div>
-                        <button class="ft l hv pd5 fourth h100 updateProfButton brButton primarybg" v-on:click="updateProfile(user)" style="height:fit-content;">Update Profile</button>
+                        <button class="ft l hv pd5 fourth h100 updateProfButton brButton primarybg" @click="updateProf(user.id)" style="margin-top:1%;height:fit-content;">Update Profile</button>
                         
                         <hr/>
                         <br/>
@@ -123,8 +121,21 @@
 
                 </div>
 
-                <div class="inform containChecklist lb2 br10 h100" style="margin-left:3%">
+                <div class="inform containChecklist br10" style="margin-left:3%;overflow-y:auto;height:50vh">
+                    <!-- empty array length is 1, use first value once split, empty string '', if true, assessment has no questions done -->
+                    <div v-if="String(usDetails[8]).split(',')[0] === ''">
+                        <p class="w100 ft b" style="margin-bottom:5%">You've not completed your insurance assessment yet.</p>
+                        <router-link to="/InsuranceAssessmentGuide" class="w100 hfc">Learn More</router-link>
+                        <br/>
+                        <router-link to="/Insurance_Assessment" class="w100 hfc">Assessment Page</router-link>
 
+                    </div>
+                    <div v-if="String(usDetails[8]).split(',')[0] != ''" style="margin-bottom:5%">
+                    <p class="w100 ft l" style="color:green">You have completed {{ String(usDetails[8]).split(',').length }}/20 questions</p>
+                    <router-link to="/Insurance_Assessment" class="w100 hfc">Assessment Page</router-link>
+                    </div>
+
+                    <p v-for="(item, index) in String(usDetails[8]).split(',')" :key="index">{{ item.split('_')[0] }} <br/>{{ item.split('_')[2] }}</p>
                 </div>
 
             </div>
@@ -178,13 +189,11 @@ onMounted(() => {
 </script>
 
 
-<script type="module">
-import { getFirestore, onSnapshot, collection, query, doc, setDoc } from 'firebase/firestore';
+<script>
+import { getFirestore, onSnapshot, collection, query, doc, updateDoc } from 'firebase/firestore';
 import { onAuthStateChanged, getAuth } from '@firebase/auth';
 import { ref, onUnmounted, onMounted } from 'vue';
 import { app } from '@/configs.js'
-// import {firebaseConfig} from '../main.js'
-
 
 
 const isLoggedin = ref(false);
@@ -202,6 +211,7 @@ export default {
         const liveUsers = onSnapshot(latestQuery, (snapshot) => {
             this.users = snapshot.docs.map((doc) => {
                 return {
+                    id: doc.id,
                     userID: doc.data().userID,
                     username: doc.data().username,
                     gender: doc.data().gender,
@@ -209,7 +219,7 @@ export default {
                     assignmentArray: doc.data().assignmentArray,
                     from: doc.data().from,
                     occupation: doc.data().occupation,
-                    email: doc.data().emailRef,
+                    emailRef: doc.data().emailRef,
                     userType: doc.data().userType,
                     nric: doc.data().nric
 
@@ -220,17 +230,15 @@ export default {
         onUnmounted(liveUsers)
     }
     ,
+
     methods: {
+        
+        updateProf: function (id) {
 
-        updateProfile: function (user) {
-            setDoc(doc(db, 'users', user.id), {
-                username: this.$refs.username.value,
-
-
-
-
+            updateDoc(doc(db, 'users', id), {
+                username: this.$refs.username.value
             })
-        },
+        }
         
     },
 

@@ -9,7 +9,7 @@
 
                     <div style="margin-left:1%">
                         <p class="ft primary l p4" style="width:40%;text-align:left;margin-left:1%">All Available Plans</p>
-
+                        <input ref="holdUSID" style="visibility: hidden;" v-model="usID">
                         <div class="filterDropdown" style="text-align:left">
                             <select class="dropdownBox ft" v-model="selectedType" style="float:left">
                                 <option value="0" style="font-weight:bold">All Plans</option>
@@ -69,7 +69,7 @@
                     <div id="planPreview" style="width:100%">
 
                         <div class="ft p4 thirdbg wt pd5">Plan Preview</div>
-                        <button class="ft brButton primarybg od5 mt10 hv w100" style="height:3%" @click="scrollBottom">Get
+                        <button class="ft brButton od5 mt10 hv w100" style="height:3%" @click="scrollBottom">Get
                             in Touch</button>
 
 
@@ -118,12 +118,7 @@
                     <input ref="name" style="width:20%;height:30px" v-model="nameInput" class="inpClear ft l pd5"
                         placeholder="Tim Berners-Lee" />
                 </div>
-                <div class="f p7">
-                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Phone #</P>
-                    <input ref="phone" style="width:20%;height:30px" v-model="phoneInput" class="inpClear ft l pd5"
-                        placeholder="91111111" />
-
-                </div>
+    
 
                 <div class="f p7">
                     <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Email</P>
@@ -171,7 +166,7 @@
                     </label>
                 </div>
                 <br />
-                <button class="brButton primarybg pd5 hv" :disabled="!disclosureEnabled"
+                <button class="brButton pd5 hv" :disabled="!disclosureEnabled"
                     v-bind:class="{ 'disabled-button': !disclosureEnabled }" style="float:right;"
                     >Submit</button>
 
@@ -204,12 +199,6 @@
                     <input ref="name" style="width:20%;height:30px" v-model="nameInput" class="inpClear ft l pd5"
                         placeholder="Tim Berners-Lee" />
                 </div>
-                <div class="f p7">
-                    <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Phone #</P>
-                    <input ref="phone" style="width:20%;height:30px" v-model="phoneInput" class="inpClear ft l pd5"
-                        placeholder="91111111" />
-
-                </div>
 
                 <div class="f p7">
                     <P class="wfc pd5 ft l wt" style="width:10%;text-align:left">Email</P>
@@ -257,7 +246,7 @@
                     </label>
                 </div>
                 <br />
-                <button class="brButton primarybg pd5 hv" :disabled="!disclosureEnabled"
+                <button class="brButton pd5 hv" :disabled="!disclosureEnabled"
                     v-bind:class="{ 'disabled-button': !disclosureEnabled }" style="float:right;"
                     @click="addNewMessage">Submit</button>
 
@@ -273,6 +262,7 @@
 <script>
 import { getFirestore, collection, addDoc, query, onSnapshot } from 'firebase/firestore';
 import { app } from '@/configs'
+// import { checkEmail, checkPassword } from '@/configs';
 import { ref, onUnmounted } from 'vue';
 
 
@@ -292,7 +282,6 @@ export default {
             disclosure: false,
             selectedType: "All Plans",
             previewPlan: 1,
-            favorites: [1, 5, 6, 8, 9],
             filterByType: ["Life", "Health", "Auto", "Disability", "Home", "Long-Term"],
             holdPlanName: "",
             selectedPlan: "",
@@ -353,24 +342,18 @@ export default {
         },
 
         addNewMessage: function () {
-            if (this.$refs.name.value.trim()
-                && this.$refs.phone.value.trim()
-                && this.$refs.email.value.trim()
-                && this.$refs.plan.value.trim()
-                && this.$refs.title.value.trim()
-                && this.$refs.newmessage.value.trim()
-            ) {
+            if (this.$refs.name.value.trim() && this.$refs.plan.value.trim() && this.$refs.email.value.trim() && this.$refs.newmessage.value.trim() && this.$refs.title.value.trim()) {
                 addDoc(collection(db, 'messages'), {
                     title: this.$refs.title.value,
                     text: this.$refs.newmessage.value, //textarea question
-                    phone: this.$refs.phone.value, // phone number
+                    // phone: this.$refs.phone.value, // phone number
                     email: this.$refs.email.value, // email
                     name: this.$refs.name.value, // name
                     plan: this.$refs.plan.value, //plan name && id
                     visibleTo: "Advisors",
                     date: Date.now(),
-                    replies: []
-
+                    replies: [],
+                    senderID: this.$refs.holdUSID.value
                 })
 
                 this.goRedirect();
@@ -413,6 +396,7 @@ export default {
 <script setup>
 import { onMounted } from 'vue';
 import { getAuth,onAuthStateChanged } from '@firebase/auth';
+
 var usID = ref('');
 var usEmail = ref('');
 let auth;
@@ -425,7 +409,6 @@ onMounted(() => {
       isLoggedin.value = true;
       usID.value = user.uid;
       usEmail.value = user.email;
-
     }
     else {
       isLoggedin.value = false;

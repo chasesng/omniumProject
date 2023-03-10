@@ -3,15 +3,15 @@
 
 <!-- <div id="app" class="bgControl" :style="{ backgroundImage: `url(${require('./assets/whitebg.jpg')})`}"> -->
   <!-- <div id="app" class="bgControl" style="background-color:rgba(243,246,251,255)"> -->
-      <div id="app" class="bgControl" style="background-color:rgba(33,33,45,255)">
+    <div id="app" class="bgControl" style="background-color:rgba(33,33,45,255) ">
 
 
   <LoadingScreen v-if="isLoading"></LoadingScreen>
   <MainHome msg = "Welcome"/>
-  <!-- <img id = "logo" src="./assets/icons/OmniumLogo_Default.png"/> -->
   <br/>
 
   <headerControl/>
+  
   <br/>
   <br/>
   <footerControl/>

@@ -1,34 +1,35 @@
 
 <template>
   <br />
-  <div class="cntr f w1k animate__animated animate__slideInUp">
+
+  
+  <div class="cntr f w1k animate__animated animate__slideInUp mt50" style="width:70vw">
     <div class="hof bs br10">
       <img class="picsize mt10 cntr" src="../assets/planBanner/family.png" @click="redirectHelp();" />
     </div>
     <div class="txt cntr" style="margin-left:30px;">
       <p class="p3 third ft b2 mb10">Insurance Assessment</p>
       <p class="ft p6 b third ">For your assurance today, tomorrow, and more</p>
-      <h4 class="ft p6 second mb50 l`">Find the insurance most suited for you and your loved ones on Omnium.</h4>
-      <!-- <button class="brButton primarybg hv ft l" @click="goToGeneralAssessment();">Learn More</button> -->
-      <button class="brButton primarybg hv ft l" @click="redirectHelp();">Learn More</button>
+      <h4 class="ft p7 second mb50 l">Find the insurance most suited for you and your loved ones on Omnium.</h4>
+      <button class="brButton  hv ft l" @click="redirectHelp();">Learn More</button>
 
     </div>
 
   </div>
   <br/>
-  <div class="offeredProducts animate__animated animate__slideInUp" style="margin:auto;">
-    <p class="p3 mt50 third ft mb10">Let us find the plan for you</p>
+  <div class="offeredProducts animate__animated animate__slideInUp" style="margin:auto;width:70vw">
+    <p class="p3 mt50 third ft mb10 mt50">Let us find the plan for you</p>
     <p class="p7 second ft mb50">Our available insurance plans are greatly diversified and covers over most aspects of life.
     </p>
 
-    <div class="cntr f w1k">
+    <div class="cntr f w1k" style="width:70vw">
 
-      <div class="txt cntr" style="margin-right:30px">
+      <div class="txt cntr" style="margin-right:30px;">
         <p class="p3 third ft b2 mb10">Contact an advisor</p>
         <p class="ft p6 b third ">Require assistance?</p>
         <p class="ft p7 second mb50 l">Find help by contacting our dedicated team of readily available advisors to clear
           your doubts.</p>
-        <button class="brButton primarybg hv ft l" @click="gotoSupport();">Get in Touch</button>
+        <button class="brButton hv ft l" @click="gotoSupport();">Get in Touch</button>
       </div>
       <div class="mb10 hof br10 bs">
         <img class="picsize mt10 cntr" src="../assets/insurance_agent.jpg" @click="gotoSupport();"/>
@@ -38,68 +39,28 @@
     </div>
     <br />
     <br />
-    <div class="ib mb50">
-      <p class="ft l p3 third pd5 w100" style="text-align:left;">Insurance Products</p>
+    <div class="ib mb50" style="width:70vw">
+      <p class="ft l p3 third pd5 w100 mb50" style="text-align:left;">Insurance Products</p>
+
       <div class="containBanners br10 hof">
-
-        <div class="life_Banner ft l fourth" @click="changePreview('Life')" id="banner">
-          <p class="fourth">Life</p>
-          <div class="icon_container" style="margin-bottom:-5%">
-            <i class="fa-solid fa-life-ring cntr" style="font-size:60px;"></i>
+        <div v-for="(type, index) in types" :key="index" id="banner" class="ft l fourth" @click="changePreview(type[0])">
+          <p class="fourth">{{ type[0] }}</p>
+          <div class="icon_container" style="margin-bottom:-3%">
+            <i :class="type[1]" style="font-size:60px;"></i>
           </div>
-          <button id="viewPlanbtn" class="brButton primarybg hv ft l" @click="changePreview('Life')">View Plans</button>
+          <button id="viewPlanbtn" class="brButton hv l fourth" @click="changePreview(type[0])">View Plans</button>
+        
         </div>
 
-        <div class="health_Banner ft l fourth" @click="changePreview('Health')" id="banner">
-          <p class="fourth">Health</p>
-          <div class="icon_container trimB5">
-            <i class="fa-solid fa-heart-pulse cntr" style="font-size:60px;"></i>
-          </div>
-          <button id="viewPlanbtn" class="brButton primarybg hv ft l" @click="changePreview('Health')">View Plans</button>
-        </div>
-
-        <div class="home_Banner ft l fourth"  @click="changePreview('Home')" id="banner">
-          <p class="fourth">Home</p>
-          <div class="icon_container trimB5">
-            <i class="fa-solid fa-house cntr" style="font-size:60px;"></i>
-          </div>
-          <button id="viewPlanbtn" class="brButton primarybg hv ft l" @click="changePreview('Home')">View Plans</button>
-        </div>
-
-        <div class="auto_Banner ft l fourth" @click="changePreview('Auto')" id="banner">
-          <p class="fourth">Auto</p>
-          <div class="icon_container trimB5">
-            <i class="fa-solid fa-car cntr" style="font-size:60px;" ></i>
-          </div>
-          <button id="viewPlanbtn" class="brButton primarybg hv ft l" @click="changePreview('Auto')">View Plans</button>
-        </div>
-
-        <div class="disability_Banner ft l fourth" @click="changePreview('Disability')" id="banner">
-          <p class="fourth">Disability</p>
-          <div class="icon_container trimB5">
-            <i class="fa-solid fa-wheelchair cntr" style="font-size:60px;"></i>
-          </div>
-          <button id="viewPlanbtn" class="brButton primarybg hv ft l" @click="changePreview('Disability')">View
-            Plans</button>
-        </div>
-
-        <div class="longtermcare_Banner ft l fourth" @click="changePreview('Long-Term')" id="banner">
-          <p class="fourth">Long Term</p>
-          <div class="icon_container trimB5">
-            <i class="fa-solid fa-person-cane cntr" style="font-size:60px;"></i>
-          </div>
-          <button id="viewPlanbtn" class="brButton primarybg hv ft l" @click="changePreview('Long-Term')">View
-            Plans</button>
-        </div>
 
       </div>
     </div>
     <br />
-    <div class="cntr f" style="width:55%">
+    <div class="cntr f" style="width:70vw">
       <p class="ft l p3 third pd5 w50" style="text-align:left;">{{ previewType }} Plans</p>
       <router-link class="ft l p3 third pd5 w50 primary" to="/Plans" style="text-align:right;text-decoration: none">View All Here</router-link>
     </div>
-    <div class="cntr f sbb" style="white-space:nowrap; height:300px; width:60vw;overflow-x:auto;scrollbar-gutter:stable;">
+    <div class="cntr f sbb" style="white-space:nowrap; height:300px; width:70vw;overflow-x:auto;scrollbar-gutter:stable;">
       <br />
       <div class="previewPlans lb pd5 animate__animated animate__fadeInLeft bs br10 hv wtbg"
         v-for="(plan, index) in plans.filter(plan => plan.coverageType === previewType)" :key="index"
@@ -130,11 +91,11 @@
 
 
     <br />
-    <div class="rationaleContainer" style="margin:auto; width:1050px;height:600px;">
+    <div class="rationaleContainer" style="margin:auto; width:70vw;height:600px;">
       <div class="rationaleImage hof br10 bs" style="float:left;">
         <img style="object-fit: cover; width:100%; height: 100%;" class="gp" src="../assets/rationaleImg.jpg" @click="goToPreviewPage()"/>
       </div>
-      <div class="rationaleText cntr">
+      <div class="rationaleText cntr" style="margin-left:20vw">
         <h4 class="ft b2 thirdbg p3 mt10 wt br10 pd5">Why Us</h4>
         <h4 class="p6 ft third l mb10">Buying insurance may not be simple, but with us, it can be.</h4>
         <h4 class="p7 ft second l">We offer major insurance options in Singapore with easy viewing and selection.</h4>
@@ -142,7 +103,7 @@
           purchasing.</h4>
         <h4 class="p7 ft second l mb50">Find out more about Omnium here, and guarantee a smooth and simple purchase of
           your assurance.</h4>
-        <button class="brButton primarybg hv ft l" @click="goToPreviewPage()">Learn More</button>
+        <button class="brButton hv ft l" @click="goToPreviewPage()">Learn More</button>
 
 
         <div class="umbrellaIcon mt50">
@@ -150,7 +111,7 @@
       </div>
     </div>
     <br />
-    <div class="customizationContainer" style="margin:auto;width:1050px;display:flex;">
+    <div class="customizationContainer" style="margin:auto;width:70vw;display:flex;">
       <div class="hof bs br10">
         <img class="picsize" src="../assets/customPlanfinder.jpg" />
       </div>
@@ -191,7 +152,17 @@ export default {
       plans: ref([]),
       tooltipText: '',
       previewType: 'Life',
+      // types: ["Life", "Health", "Auto", "Disability", "Home", "Long-Term"],
+      types: [
+        ['Life', 'fa-solid fa-life-ring cntr'],
+        ['Health', 'fa-solid fa-heart-pulse cntr'],
+        ['Auto', 'fa-solid fa-car cntr'],
+        ['Home', 'fa-solid fa-house cntr'],
+        ['Disability', 'fa-solid fa-wheelchair cntr'],
+        ['Long-Term', 'fa-solid fa-person-cane cntr']
 
+
+      ],
       currentDate: new Date().toLocaleDateString('en-US', {
         weekday: 'long',
         month: 'long',
@@ -255,6 +226,7 @@ export default {
   margin-top: 60px;
 }
 
+
 #displayTitle {
   text-align: center;
   color: grey;
@@ -287,11 +259,10 @@ export default {
 
 #viewPlanbtn {
   height: 50px;
-  width: 175px;
+  width: 100%;
   font-size: 20px;
   text-align: center;
-  border: 1px solid grey;
-  color: white;
+  /* border: 1px solid grey; */
   cursor: pointer;
 
   border-radius: 0px;
@@ -300,7 +271,6 @@ export default {
 
 #banner {
   height: 100%;
-  width: 16.67%;
   font-size: 26px;
   text-align: center;
   vertical-align: middle;
@@ -319,8 +289,7 @@ export default {
 
 
 .containBanners {
-  width: 1050px;
-  height: 230px;
+  height: 210px;
   display: flex;
   border: 1px solid gray;
   margin: auto;
@@ -425,4 +394,6 @@ export default {
     right: 0;
     left: unset;
   }
-}</style>
+}
+
+</style>

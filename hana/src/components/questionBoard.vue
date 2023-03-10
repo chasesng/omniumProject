@@ -84,7 +84,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>``
 
 
       </div>
@@ -93,13 +93,15 @@
         <div>
 
           <p class="w100 ft b2 p6 second pd5" style="height:100%;width:100%;margin-bottom:-2%">Message <i class="fa-solid fa-envelope-open-text"></i></p>
-          <div class="ft l br10 cntr" style="border:1px solid gray;margin-top:2%;width:95%">
+          <div class="ft l br10 cntr" style="border:1px solid gray;margin-top:2%;width:99%">
 
             <div class="scroll wtbg br10" style="overflow-y:auto;scrollbar-gutter:stable;height:570px">
               <div v-for="(message, id) in messages" :key="id">
+                
                 <div class="f" style="width:100%">
                   <p class="pd5 p9" style="width:30%;text-align:left;border-bottom:.5px solid gray;;"
                     v-if="previewQn === message.id">Sent: {{ timestampFormat(message.date) }}</p>
+                    
                   <p class="pd5 p9 second"
                     style="width:20%;text-align:center;border-bottom:.5px solid gray;overflow: hidden;"
                     v-if="previewQn === message.id">{{ timeDifference(message.date) }}</p>
@@ -111,12 +113,21 @@
                 <p class="p6 b pd5" style="width:100%;text-align:left;" v-if="previewQn === message.id">
                   <span style="color: black;">{{ message.title }}</span>
                 </p>
+                
                 <div class="f">
                   <p class="pd5 p7 b" style="text-align:left;" v-if="previewQn === message.id">Plan: {{ message.plan }} |
                   </p>
                   <p class="pd5 p7 b" style="text-align:right;" v-if="previewQn === message.id">Sender: {{ message.name }}
+                  
                   </p>
                 </div>
+                <!-- <div v-if="previewQn === message.id">
+                  <div v-for="(user, index) in users.filter(user => user.userID === message.senderID)" :key="index" >
+                    
+                    <p class="ibn l p8" style="color:red">This user has completed {{ user.assignmentArray[0].split(',').length }} / 20 questions of their insurance assessment.</p>
+                    <p class="ibn l p8" style="color:green">View their results here</p>
+                  </div>
+                </div> -->
 
                 <p class="pd5" style="white-space: pre-wrap;text-align:left;height:300px;overflow-y:auto"
                   v-if="previewQn === message.id">{{
@@ -167,7 +178,7 @@
       </div>
       <br />
       <div class="f">
-        <p class="pd5" style="width:10%">RE: Email</p><input class="inp" type="text"
+        <p class="pd5" style="width:10%">RE:</p><input class="inp" type="text"
           style="text-align:left;margin-right:3%;width:250px" v-model="emailHeader"
           placeholder="(Click on a request above)" :disabled="true" />
       </div>
@@ -187,7 +198,7 @@
       
         <input class="inp" type="text" ref="holdusid" style="text-align:left;width:500px;visibility:hidden" :value="usID"/>
 
-      <textarea class="pd5 ft l lb br10" ref="reply" style="overflow-y:auto;height:50%;width:95%;resize:none;"
+      <textarea class="pd5 ft l lb br10" ref="reply" style="overflow-y:auto;height:40%;width:95%;resize:none;"
         placeholder="Enter reply here..."></textarea>
 
     </div>
@@ -393,8 +404,6 @@ export default {
       replies: [],
       currentVisible: "Advisors",
       showUserType: "",
-      viewAll: ref([])
-
 
 
     }
@@ -418,6 +427,7 @@ export default {
           plan: doc.data().plan,
           replies: doc.data().replies,
           visibleTo: doc.data().visibleTo,
+          senderID: doc.data().senderID
 
         }
       });
@@ -452,7 +462,7 @@ let auth;
 
 onMounted(() => {
   auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
     if (user) {
 
       isLoggedin.value = true;

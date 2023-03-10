@@ -1,17 +1,18 @@
 <template>
     <br/><br/>
     <br/>
-<div>
+        <div>
             
             <ul id="authenticationNavs" class="ft">
-                <div class="redirectButton ibn p5 pd5 ntd l wt cursPoint" v-if="isLoggedin" @click="go('/Question_Board')">Messages |</div>
-                <div class="redirectButton ibn p5 pd5 ntd l wt cursPoint" v-if="!isLoggedin" @click="go('/userLogin')">Login</div>                
-                <div class="redirectButton ibn p5 pd5 ntd l wt cursPoint" v-if="isLoggedin" @click="go('/Profile')">View Profile |</div>
-                <div class="redirectButton ibn p5 pd5 tdn l wt cursPoint" v-if="isLoggedin" @click="handleSignOut">Logout |</div>                
+                <div class="redirectButton ibn p6 pd5 ntd l wt cursPoint" v-if="isLoggedin" @click="go('/Question_Board')">Messages |</div>
+                <div class="redirectButton ibn p6 pd5 ntd l wt cursPoint" v-if="!isLoggedin" @click="go('/userLogin')">Login</div>                
+                <div class="redirectButton ibn p6 pd5 ntd l wt cursPoint" v-if="isLoggedin" @click="go('/Profile')">View Profile |</div>
+                <div class="redirectButton ibn p6 pd5 tdn l wt cursPoint" v-if="isLoggedin" @click="handleSignOut">Logout |</div>                
                              
 
             </ul>
         </div>
+
 
     <nav style="height:fit-content" class="onMenuHidden">
 
@@ -22,22 +23,7 @@
         <router-link to="/Menu" class="ibn l wt sideNav" style="text-decoration: none;" >Menu <i class="fa-solid fa-bars" style="margin-left:2%;"></i></router-link>
       </div>
         
-        <!-- <ul id="header" class="mainNavs ft primarybg w100">
-            
-                <router-link class="ft wt hv headNavs" to="/">Home</router-link>        
-                <router-link class="ft wt hv headNavs" to="/Omnium_Credentials">What is Omnium</router-link>          
-                <router-link v-if="isLoggedin" class="ft wt hv headNavs" to="/Insurance_Assessment">Insurance Assessment</router-link>                     
-                <router-link class="ft wt hv headNavs" to="/Plans">All Plans</router-link>
-                <router-link class="ft wt hv headNavs" to="/Support">Contact Support</router-link> 
-                <router-link v-if="isLoggedin" class="ft wt hv headNavs" to="/Question_Board">Advisor Requests</router-link>                     
 
-
-                
-        
-
-
-
-        </ul> -->
     </nav>
     <router-view />
 </template>

@@ -1,17 +1,17 @@
 <template>
     <br/><br/>
-    <div class="loginContainer cntr bs sb" style="width:30%;">
+    <div class="loginContainer cntr bs sb  animate__animated animate__fadeIn" style="width:30%;">
         <div class="holdLoginSections pdt">
             <div class="inputCredentials" style="width:100%; background-color:white; justify-content: center;">
-                <div class="w50 cntr" style="height:100px;overflow:hidden">
-            <img id = "logo"  src="../assets/icons/OmniumLogo_Default.png" style="vertical-align: middle; max-width: 100%;max-height:100%;"/>
+            <div class="w100" style="overflow:hidden">
+                <img id = "logo"  src="../assets/icons/OmniumLogo_Default.png" style="vertical-align: middle;max-height:70%;max-width:70% ; width:100%;height:100%"/>
             </div>
             <br/>
             <div style="display:inline-block; height:100%">
                 <br/>
             
             
-            <div class="ft p4 l mb25" style="color:black;float:left"> Login </div>
+            <div class="ft p4 l mb25 primary" style="float:left"> Welcome Back, </div>
             <Br/>
             <Br/>
            
@@ -132,7 +132,6 @@ const login = () => {
 .holdLoginSections {
     display:flex;
     margin:auto;
-    border-radius:10px;
     overflow:hidden;
 
 }
