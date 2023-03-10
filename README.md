@@ -26,21 +26,27 @@ npm run serve
 # omniumProject
 
 <h4>Login Account (To access assessment / profile page): <br/>
-Email: chase@yahoo.com <br/>
-Password: GitHub1! (case-sensitive)</h4/> <br/>
+Advisor Profile: To view and reply to open enquiries.
+email: basic@yahoo.com
+password: 91699326
+
+User Profile: To send in enquiries and receive responses.
+email: basic2@yahoo.com
+password: 91699326
 
 ## Available Features
 ```sh
 
 - Sign Up and Log In with Firebase Authentication
-- Router-Link and authentication on authorized-only pages
 - Firestore Database CRUD functions. (Advisor Requests: Authorized-Only Page)
-    View enquiries made by consumers in "All Plans" Page
-    Go to "Advisor Requests" page to view all enquiries, stored in Firestore Database
-    Authorized personnel (no user-types as of 20/02/2023) can view the page and reply to an enquiry of their choice after viewing its contents
+    Advisors can login to view enquiries made by Users in "All Plans" Page
+    -   From there, responding to an open query will send it to their personal inbox.
+    Go to "Advisor Requests" page to view all enquiries, data stored in Firestore Database
 - Viewing of all available plans and descriptions on a single page based on user click, inclusive of an enquiry form for advisors to view
     Display descriptions of plans on the side without repeated page load for every option chosen for viewing
     When interested in a plan, users can send in an enquiry for advisors
+    
+    
 ```
 
 
