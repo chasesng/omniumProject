@@ -68,7 +68,7 @@
 
                     <div id="planPreview" style="width:100%">
 
-                        <div class="ft p4 thirdbg wt pd5">Plan Preview</div>
+                        <div class="ft p4 fourth wt pd5">Plan Preview</div>
                         <button class="ft brButton od5 mt10 hv w100" style="height:3%" @click="scrollBottom">Get
                             in Touch</button>
 

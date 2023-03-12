@@ -2,7 +2,28 @@
 <template>
   <br />
 
-  
+  <div class="fade-on-scroll cntr br10 ibn p6 ib"   :style="{ opacity: 1 - (scrollPosition / fadeThreshold) }" style="width:100vw;height:65vh;margin-bottom:10vh;margin-top:5%;overflow: hidden; background: linear-gradient(0deg, rgba(44,62,80,1) 10%, rgba(23,78,166,1) 100%);">
+
+    <p class="wt cntr" style="font-size:80px;margin-top:2%">Omnium</p>
+    <p class="wt p6" style="opacity:.5">Your friend in insurance</p>
+    <p class="wt p6 cntr" style="width:40vw;opacity:.8">Everyone understands the hassle of going through insurance plans from all brands, conversing with an advisor, then hesitating every step with the worry of not getting the best option available. Even after purchasing, there's more hurdles to jump...</p>
+    <p class="wt p6 cntr" style="width:40vw;opacity:.9">Omnium is here for all your insurance needs; from viewing to purchasing, clearing your doubts and giving you the best options available.</p>
+    <br/>
+    <div class="f cntr" style="width:28vw;justify-content: space-between;">
+      <button class="brButton hv l" @click="redirectCredentials">Learn More</button>
+
+      <button class="brButton hv l" @click="redirectSignUp">Sign Up</button>
+
+    </div>
+    <div class="custom-shape-divider-bottom-1678547880">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+    </svg>
+</div>
+  </div>
+
   <div class="cntr f w1k animate__animated animate__slideInUp mt50" style="width:70vw">
     <div class="hof bs br10">
       <img class="picsize mt10 cntr" src="../assets/planBanner/family.png" @click="redirectHelp();" />
@@ -11,15 +32,16 @@
       <p class="p3 third ft b2 mb10">Insurance Assessment</p>
       <p class="ft p6 b third ">For your assurance today, tomorrow, and more</p>
       <h4 class="ft p7 second mb50 l">Find the insurance most suited for you and your loved ones on Omnium.</h4>
-      <button class="brButton  hv ft l" @click="redirectHelp();">Learn More</button>
+      <button class="brButton hv ft l" @click="redirectHelp();">Learn More</button>
 
     </div>
 
   </div>
-  <br/>
+  <br />
   <div class="offeredProducts animate__animated animate__slideInUp" style="margin:auto;width:70vw">
     <p class="p3 mt50 third ft mb10 mt50">Let us find the plan for you</p>
-    <p class="p7 second ft mb50">Our available insurance plans are greatly diversified and covers over most aspects of life.
+    <p class="p7 second ft mb50">Our available insurance plans are greatly diversified and covers over most aspects of
+      life.
     </p>
 
     <div class="cntr f w1k" style="width:70vw">
@@ -32,7 +54,7 @@
         <button class="brButton hv ft l" @click="gotoSupport();">Get in Touch</button>
       </div>
       <div class="mb10 hof br10 bs">
-        <img class="picsize mt10 cntr" src="../assets/insurance_agent.jpg" @click="gotoSupport();"/>
+        <img class="picsize mt10 cntr" src="../assets/insurance_agent.jpg" @click="gotoSupport();" />
       </div>
       <br />
 
@@ -49,7 +71,7 @@
             <i :class="type[1]" style="font-size:60px;"></i>
           </div>
           <button id="viewPlanbtn" class="brButton hv l fourth" @click="changePreview(type[0])">View Plans</button>
-        
+
         </div>
 
 
@@ -58,7 +80,8 @@
     <br />
     <div class="cntr f" style="width:70vw">
       <p class="ft l p3 third pd5 w50" style="text-align:left;">{{ previewType }} Plans</p>
-      <router-link class="ft l p3 third pd5 w50 primary" to="/Plans" style="text-align:right;text-decoration: none">View All Here</router-link>
+      <router-link class="ft l p3 third pd5 w50 primary" to="/Plans" style="text-align:right;text-decoration: none">View
+        All Here</router-link>
     </div>
     <div class="cntr f sbb" style="white-space:nowrap; height:300px; width:70vw;overflow-x:auto;scrollbar-gutter:stable;">
       <br />
@@ -93,7 +116,8 @@
     <br />
     <div class="rationaleContainer" style="margin:auto; width:70vw;height:600px;">
       <div class="rationaleImage hof br10 bs" style="float:left;">
-        <img style="object-fit: cover; width:100%; height: 100%;" class="gp" src="../assets/rationaleImg.jpg" @click="goToPreviewPage()"/>
+        <img style="object-fit: cover; width:100%; height: 100%;" class="gp" src="../assets/rationaleImg.jpg"
+          @click="goToPreviewPage()" />
       </div>
       <div class="rationaleText cntr" style="margin-left:20vw">
         <h4 class="ft b2 thirdbg p3 mt10 wt br10 pd5">Why Us</h4>
@@ -122,7 +146,7 @@
         <br />
         <h4 class="p7 ft second l">Our aim is to enable accessibility and ease in the path to life security. You will not
           be charged any extra fees using our platform.</h4>
-          <Br/>
+        <Br />
         <h4 style="font-size:30px"><i class="fa-solid fa-umbrella wt"></i></h4>
 
         <br />
@@ -136,8 +160,8 @@
 
 <script>
 import { getFirestore, collection, query, onSnapshot } from 'firebase/firestore';
-import { app } from '@/configs'
 import { ref, onUnmounted } from 'vue';
+import { app } from '@/configs'
 
 
 const db = getFirestore(app);
@@ -149,6 +173,8 @@ export default {
 
 
     return {
+      scrollPosition: -300,
+      fadeThreshold: 700,
       plans: ref([]),
       tooltipText: '',
       previewType: 'Life',
@@ -171,13 +197,35 @@ export default {
       })
     }
   }, methods: {
+
+    handleScroll() {
+      this.scrollPosition = window.scrollY;
+      const div = document.querySelector('.fade-on-scroll');
+      if (div) {
+        if (this.scrollPosition > this.fadeThreshold) {
+          div.classList.add('fade-out');
+        } else {
+          div.classList.remove('fade-out');
+        }
+      
+      }
+    },
+
     changePreview(id) {
       this.previewType = id;
     },
+    redirectCredentials() {
+      this.$router.push({ path: '/Omnium_Credentials' })
 
+    },
+    redirectSignUp() {
+      this.$router.push({ path: '/Register' })
+
+    },
     redirectHelp() {
       this.$router.push({ path: '/InsuranceAssessmentGuide' })
     },
+   
     goToGeneralAssessment() {
       this.$router.push({ path: '/Insurance_Assessment' })
     },
@@ -190,10 +238,12 @@ export default {
     goToPreviewPage() {
       this.$router.push({ path: '/Omnium_Credentials' })
     },
-  
+
 
   },
   mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+
     const latestQuery = query(collection(db, "plans"));
     const livePlans = onSnapshot(latestQuery, (snapshot) => {
       this.plans = snapshot.docs.map((doc) => {
@@ -212,6 +262,9 @@ export default {
       });
     });
     onUnmounted(livePlans)
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
 }
@@ -226,6 +279,35 @@ export default {
   margin-top: 60px;
 }
 
+
+
+.custom-shape-divider-bottom-1678547880 {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1678547880 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 100px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1678547880 .shape-fill {
+    fill: #FFFFFF;
+}
+
+
+.fade-on-scroll {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+.fade-on-scroll.fade-out {
+  opacity: 0;
+}
 
 #displayTitle {
   text-align: center;
@@ -394,6 +476,4 @@ export default {
     right: 0;
     left: unset;
   }
-}
-
-</style>
+}</style>

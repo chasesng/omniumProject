@@ -129,6 +129,22 @@
                   </div>
                 </div> -->
 
+                <div v-if="previewQn === message.id">
+                  <div v-for="(user, index) in users.filter(user => user.userID === message.senderID)" :key='index'>
+                    <p v-if="String(user.assignmentArray).split(',')[0] === '' && showUserType != 'User'" class="ibn l p8" style="color:red">This user has not completed their insurance assessment.</p>
+                   
+                    <div v-else-if="String(user.assignmentArray).split(',')[0] != '' && showUserType != 'User'" class="ibn l p8" style="color:green">This user has completed {{ String(user.assignmentArray).split(',').length }}/20 questions of the insurance assessment.
+                    <br/>
+                      <div style="overflow-y:auto;height:30vh">
+                        <p v-for="(item, index) in String(user.assignmentArray).split(',')" :key="index"><span>{{index+1}}. {{ item.split('_')[0] }}</span>
+                        <br /><span style="text-decoration:underline">{{ item.split('_')[2] }}</span></p>
+                      
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
                 <p class="pd5" style="white-space: pre-wrap;text-align:left;height:300px;overflow-y:auto"
                   v-if="previewQn === message.id">{{
                     message.text }}</p>
@@ -196,7 +212,7 @@
         <input class="inp" ref="header" type="text" v-model="header" style="text-align:left;width:500px" />
       </div>
       
-        <input class="inp" type="text" ref="holdusid" style="text-align:left;width:500px;visibility:hidden" :value="usID"/>
+        <input class="inp" type="text" ref="holdusid" style="text-align:left;width:500px;display:none" :value="usID"/>
 
       <textarea class="pd5 ft l lb br10" ref="reply" style="overflow-y:auto;height:40%;width:95%;resize:none;"
         placeholder="Enter reply here..."></textarea>
@@ -217,6 +233,7 @@ import { getFirestore, onSnapshot, collection, doc, addDoc, orderBy, query, upda
 import { onAuthStateChanged, getAuth } from '@firebase/auth';
 import { ref, onUnmounted, onMounted } from 'vue';
 import { app } from '@/configs.js';
+
 
 const db = getFirestore(app);
 const errMsg = ref();
@@ -459,6 +476,8 @@ export default {
 var usID = ref('');
 var usEmail = ref('');
 let auth;
+
+
 
 onMounted(() => {
   auth = getAuth();
