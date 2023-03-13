@@ -41,8 +41,50 @@ export default {
             this.$router.push({ path: val})
         }
     },
+    // mounted() {
+    //     const latestQuery = query(collection(db, "users"));
+    //     const liveUsers = onSnapshot(latestQuery, (snapshot) => {
+    //         this.users = snapshot.docs.map((doc) => {
+    //             return {
+    //                 userID: doc.data().userID,
+    //                 userType: doc.data().userType,
+    //             }
+    //         });
+    //     });
+    //     onUnmounted(liveUsers)
+    // }
 }
 </script>
+
+
+
+<!--
+<script setup>
+var usDetailsType = ref('');
+let auth;
+
+onMounted(() => {
+    auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            isLoggedin.value = true;
+            for (let i = 0; i < (this.users).length; i++) {
+              if ( (this.users)[i].userID === user.id) {
+                usDetailsType.value = ((this.users)[i].userType)
+              }
+            }
+        }
+        else {
+            isLoggedin.value = false;
+        }
+        return {
+
+        }
+    })
+})
+
+
+</script> -->
 
 
 

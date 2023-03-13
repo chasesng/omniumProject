@@ -38,37 +38,18 @@
         </div>
         <div class="input-column f">
           <input id="email" class="inpClear inp" type="email" @focus="changeLabelColor(0)" @blur="resetLabelColor(0)" placeholder="name@example.com" v-model="email"/>
-          <div v-if="checkEmail(email)" class="l p9" style="color:green;margin-left:1%;">Email is valid</div>
-          <div v-else-if="checkEmail(email) != true && email.length >=1" class="l p9" style="color:red">✖ This is not a valid email</div>
+          <div v-if="checkEmail(email) === true" class="l p9" style="color:green;font-weight:lighter;margin-left:1%;">Email is valid</div>
 
         </div>
       </div>
-
-      <div class="form-group">
-        <div class="label-column">
-          <label for="dob" :style="{color: labelColors[5]}">Date of Birth *</label>
-        </div>
-        <div class="input-column f">
-          <input id="dob" class="inpClear inp" type="date" @focus="changeLabelColor(5)" @blur="resetLabelColor(0)" placeholder="" v-model="dob"/>
-          <!-- <div class="l p9" style="color:green;font-weight:lighter;margin-left:1%;">You are old enough to use Omnium</div> -->
-          <!-- by singapore law, anyone above the age of 10 is allowed to own an insurance policy with parental consent, 16 without -->
-          <!-- checkDOB(dob) returns age in decimals -->
-
-          <p v-if="checkDOB(dob)" class="l p9" style="color:green;margin-left:1%">✓</p>
-          
-          <p v-else-if="dob != ''"  class="l p9" style="color:red;margin-left:1%s">✖ You are not old enough to purchase an insurance policy yet</p>
-        </div>
-      </div>
-
       <div class="form-group">
         <div class="label-column">
           <label for="password" :style="{color: labelColors[1]}">Password *</label>
         </div>
         <div class="passwordStatement" style="display:inline-block">
         <div class="input-column f" style="width:auto"> 
-          <input id="password" class="inpClear inp" type="password" @focus="changeLabelColor(1)" @blur="resetLabelColor(1)" placeholder="Password" v-model="password"/>
-          <div v-if="checkPassword(password) === true" class="l2 p9" style="color:green;margin-left:1%;">Password is valid</div>
-          <div v-else-if="checkPassword(password) === false && password.length >= 8" class="l2 p9" style="color:red">✖ This is not a valid password</div>
+          <input id="password" class="inpClear inp" type="text" @focus="changeLabelColor(1)" @blur="resetLabelColor(1)" placeholder="Password" v-model="password"/>
+          <div v-if="checkPassword(password) === true" class="l p9" style="color:green;font-weight:lighter;margin-left:1%;">Password is valid</div>
         </div>
         <div class="l p9" style="color:gray;font-weight:lighter;margin-left:1%">Password must contain at least 8 characters, with 1 uppercase & lowercase.</div>
       </div>
@@ -78,13 +59,12 @@
           <label for="confirmPassword" :style="{color: labelColors[2]}">Confirm Password *</label>
         </div>
         <div class="input-column f">
-          <input id="confirmPassword" class="inpClear inp" type="password" @focus="changeLabelColor(2)" @blur="resetLabelColor(2)" placeholder="Confirm Password" v-model="confirmPassword"/>
+          <input id="confirmPassword" class="inpClear inp" type="text" @focus="changeLabelColor(2)" @blur="resetLabelColor(2)" placeholder="Confirm Password" v-model="confirmPassword"/>
           <div v-if="checkMatch(password, confirmPassword) === true && password != '' && confirmPassword != ''" class="l p9" style="color:green;font-weight:lighter;margin-left:1%;">Passwords match</div>
           <div v-if="checkMatch(password, confirmPassword) === false && password != '' && confirmPassword != ''" class="l p9" style="color:red;font-weight:lighter;margin-left:1%;">Passwords do not match</div>
-        
+
         </div>
       </div>
-
       <div class="errMsg ft l" style="height:33px">{{ errMsg }}</div>
 
 
@@ -110,14 +90,13 @@ import { ref } from 'vue'
 import { createUserWithEmailAndPassword, getAuth } from '@firebase/auth'
 import { useRouter } from 'vue-router';
 import { getFirestore, addDoc, collection } from '@firebase/firestore';
-import { app, getAge } from '@/configs'
+import { app } from '@/configs'
 const db = getFirestore(app);
 
 const email = ref('')
 const nric = ref('')
 const password = ref('')
 const router = useRouter();
-const dob = ref('')
 const confirmPassword = ref('')
 var errMsg = ref('');
 const username = ref();
@@ -159,7 +138,7 @@ const username = ref();
         return false;
       }
       else {
-        return true;
+        return true
       }
     }
     function rQuotes(input) {
@@ -167,60 +146,29 @@ const username = ref();
       return input.value.replace(/['"]+/g, '')
     }
 
-    
-    function checkDOB(input) { //parameter is to be the v-model="dob"
-      var curAge = getAge(Date.parse(input));
-      if (curAge >= 10) {
-        return true;
-      }
-      else {
-        return false;
-      }
-
-    }
-
 const checkInput = () => {
   const nricPass = checkNRIC(rQuotes(nric))
   const emailPass = checkEmail(rQuotes(email))
   const passwordPass = checkPassword(rQuotes(password))
   const passwordMatch = checkMatch(rQuotes(password), rQuotes(confirmPassword))
-  const agePass = checkDOB(rQuotes(dob))
 
+  
 
-  return nricPass + emailPass + passwordPass + passwordMatch + agePass
+  return nricPass + emailPass + passwordPass + passwordMatch
+
 }
 
-// const inputCheckResponse = () => {
-//   var msg = "";
-//   if ( checkNRIC(rQuotes(nric)) != true) {
-//     msg += "NRIC is invalid\n"
-//   }
-//   if ( checkEmail(rQuotes(email)) != true) {
-//     msg += "Email is invalid\n"
-//   }
-//   if ( checkPassword(rQuotes(password)) != true) {
-//     msg += "Password is invalid"
-//   }
-//   if ( checkMatch(rQuotes(password), rQuotes(confirmPassword)) != true) {
-//     msg += "Both passwords do not match\n"
-//   }
-//   if ( checkDOB(rQuotes(dob)) != true) {
-//     msg += "DOB is invalid\n"
-//   }
-
-//   errMsg.value += msg;
-// }
 const register = () => {
 
 
-  if (checkInput() === 5 && username.value.trim()) {
+  if (checkInput() === 4) {
      createUserWithEmailAndPassword(getAuth(), email.value.trim(), password.value.trim())
         .then((userCredentials) => {
           const user = userCredentials.user;
           const userID = user.uid;
           addDoc(collection(db, 'users'), {
             username: username.value,
-            dateOfBirth: dob.value,
+            age: 0,
             assignmentArray: [],
             emailRef: email.value,
             from: "NA",
