@@ -301,6 +301,10 @@
 
  }
 
+ .tbg {
+    background-color:transparent
+ }
+
  .picsize {
     width:550px;
     height:350px;
