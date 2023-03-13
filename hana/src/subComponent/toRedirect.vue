@@ -1,8 +1,9 @@
 <template>
     <br/>
     <div class="overview">
-        <p class="ft l mb50 p4 wt" style="margin-top:10%">Thank you for your recommendation!</p>
-        <button class="brButton primarybg hv" @click="goHome();" style="height:5vh">Go Back</button>
+        <p class="ft l mb50 p4 wt" style="margin-top:10%">Thank you for choosing Omnium.</p>
+        <p class="ft l mb50 p6 wt">We have received your message!</p>
+        <button class="brButton primarybg hv" @click="goHome();">Go to Home</button>
     </div>
 </template>
 
