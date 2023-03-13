@@ -1,64 +1,3 @@
-// import { createApp } from 'vue'
-// import { createRouter, createWebHistory } from 'vue-router'
-// import App from './App.vue'
-// import indexPage from './components/indexPage.vue'
-// import signUp from './components/signUp.vue'
-
-// const router = createRouter({
-//   history: createWebHistory(),
-//   routes: [
-//     { path:'/',component:App},
-//     { path:'/index',component:indexPage},
-//     { path: '/register', component: signUp },
-//   ]
-// })
-
-// const app = createApp(App)
-// app.use(router)
-// createApp(App).mount('#app')
-
-
-
-// import { createApp } from 'vue'
-// import App from './App.vue'
-//import router from '@/router'
-
-// const app = createApp(App)
-//app.use(router)
-// app.mount('#app')
-
-
-
-
-
-// createApp(App).mount('#app')
-
-// import Vue from 'vue'
-// import App from './App.vue'
-// import router from './router'
-
-
-// Vue.config.productionTip = false
-
-// new Vue({
-//   router,
-//   render: h => h(App)
-// }).$mount('#app')
-
-
-
-
-// import { createApp } from 'vue'
-// import App from './App.vue'
-// import router from './router/index'
-
-// createApp(App).use(router).mount('#app')
-
-
-
-
-
-//Vue.createApp(App).use(router).mount('#app');
 
 import { createApp } from "vue";
 import { createRouter,createWebHistory } from "vue-router";
@@ -105,6 +44,7 @@ import reclaimPassword from './subComponent/reclaimPassword.vue'
 import insuanceAssessmentGuide from './subComponent/assessmentHelp.vue'
 import displayPlans from './components/displayPlans'
 import menuBar from './components/menuBar'
+import addReco from './components/addRecommendation'
 
 
 
@@ -144,6 +84,9 @@ const router = createRouter({
     {path: "/InsuranceAssessmentGuide", name: "insuranceGuide", component: insuanceAssessmentGuide},
     {path: "/DisplayPlans", component: displayPlans},
     {path: "/Menu", component: menuBar},
+    {path: "/Add_Recommendation", component: addReco},
+
+    
 
 
 

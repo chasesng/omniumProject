@@ -295,6 +295,8 @@
  .inpClear {
     outline:none;
     border:none;
+    background-color:transparent;
+    background:transparent;
     border-bottom:1px solid darkgray;
 
  }

@@ -1,75 +1,27 @@
 <template>
-    <br/><br/>
-    <br/>
-        <div>
-            
-            <ul id="authenticationNavs" class="ft">
-                <div class="redirectButton ibn p6 pd5 ntd l wt cursPoint" v-if="isLoggedin" @click="go('/Question_Board')">Messages |</div>
-                <div class="redirectButton ibn p6 pd5 ntd l wt cursPoint" v-if="!isLoggedin" @click="go('/userLogin')">Login</div>                
-                <div class="redirectButton ibn p6 pd5 ntd l wt cursPoint" v-if="isLoggedin" @click="go('/Profile')">View Profile |</div>
-                <div class="redirectButton ibn p6 pd5 tdn l wt cursPoint" v-if="isLoggedin" @click="handleSignOut">Logout |</div>                
-                             
-
-            </ul>
+        <div class="f" style="height:28.7px;opacity:.2;background-color:black;position:absolute;top:60px;width:100vw">
+          
         </div>
-
-
-    <nav style="height:fit-content" class="onMenuHidden">
-
-      <div class="ib w100" style="height:50px; position:absolute;left:-43%;top:13%;z-index:1">
-
-        <router-link to="/" class="ibn l wt sideNav" style="text-decoration: none;">Omnium <i class="fa-solid fa-diamond"></i></router-link>
-        <br/>
-        <router-link to="/Menu" class="ibn l wt sideNav" style="text-decoration: none;" >Menu <i class="fa-solid fa-bars" style="margin-left:2%;"></i></router-link>
+        <div class="header f" style="position:absolute;top:0px;height:28.7px;width:100vw">
+       
       </div>
-        
 
-    </nav>
+
+
     <router-view />
 </template>
 
-
-
-
-<!-- <script>
-import { onMounted, ref } from 'vue';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
-export default {
-  setup() {
-    const usname = ref('');
-
-    onMounted(() => {
-      const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          usname.value = user.email;
-        }
-      });
-    });
-
-    return {
-      usname,
-    };
-  },
-  computed: {
-    username() {
-      return this.usname;
-    },
-  },
-};
-</script> -->
 
 <script setup>
 
 
 import { onMounted, ref} from 'vue'
-import { useRouter } from 'vue-router';
-import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
+// import { useRouter } from 'vue-router';
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
 
 
 const isLoggedin = ref(false);
-const router = useRouter();
+// const router = useRouter();
 var usname = ref('');
 
 let auth;
@@ -79,9 +31,6 @@ onMounted(() => {
     auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // email = user.email;
-            // emailVerified = user.emailVerified;
-            // uid = user.uid;
             isLoggedin.value = true;
             usname = user.email;
 
@@ -97,13 +46,6 @@ onMounted(() => {
 })
 
 
-
-
-const handleSignOut = () => {
-    signOut(auth).then(() => {
-        router.push('/');
-    });
-}
 
 </script>
 
@@ -142,5 +84,15 @@ export default {
 .sideNav:hover {
   font-size:2.5em;
 }
+
+.fa {
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.eaControl:hover {
+  background-color:lightgray;
+  transition: background-color .3s;
+}
+
 
 </style>
